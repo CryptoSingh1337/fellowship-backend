@@ -44,10 +44,5 @@
 			<artifactId>FellowshipNetwork</artifactId>
 			<version>1.0</version>
 		</dependency>
-		<dependency>
-			<groupId>com.cyborg</groupId>
-			<artifactId>FellowshipService</artifactId>
-			<version>1.0</version>
-		</dependency>
 	</dependencies>
 </project>

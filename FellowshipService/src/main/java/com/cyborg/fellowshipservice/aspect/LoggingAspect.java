@@ -1,4 +1,4 @@
-package com.cyborg.utilities.aspect;
+package com.cyborg.fellowshipservice.aspect;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @ConditionalOnExpression("${logging.enable:true}")
 public class LoggingAspect {
 
-    @Pointcut("execution(public * com.cyborg.fellowshipservice.user.impl.*(..))")
+    @Pointcut("execution(public * com.cyborg.fellowshipservice.user.impl.*.*(..))")
     private void userServicePointcut() {}
 
     @Before("userServicePointcut()")

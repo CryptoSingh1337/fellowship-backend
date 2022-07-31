@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: FellowshipBackend
+  quartz:
+    auto-startup: false
 
 logging:
   level:
