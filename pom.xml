@@ -6,36 +6,35 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.7.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
-	<groupId>com.lunaticdevs</groupId>
+	<groupId>com.cyborg</groupId>
 	<artifactId>FellowshipBackend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>FellowshipBackend</name>
 	<description>FellowshipBackend</description>
+	<packaging>pom</packaging>
+
 	<properties>
 		<java.version>17</java.version>
+		<main-class>com.cyborg.fellowshipweb.FellowshipWebApplication</main-class>
 	</properties>
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+	<modules>
+		<module>FellowshipDataAccess</module>
+		<module>FellowshipNetwork</module>
+		<module>FellowshipSecurity</module>
+		<module>FellowshipWeb</module>
+		<module>Utilities</module>
+	</modules>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.auth0</groupId>
+				<artifactId>java-jwt</artifactId>
+				<version>4.0.0</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
