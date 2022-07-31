@@ -7,10 +7,10 @@
 		<artifactId>FellowshipBackend</artifactId>
 		<version>1.0</version>
 	</parent>
-	<artifactId>Utilities</artifactId>
+	<artifactId>FellowshipService</artifactId>
 	<version>1.0</version>
-	<name>Utilities</name>
-	<description>Utilities</description>
+	<name>FellowshipService</name>
+	<description>FellowshipService</description>
 
 	<dependencies>
 		<dependency>
@@ -19,20 +19,13 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.auth0</groupId>
-			<artifactId>java-jwt</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.cyborg</groupId>
@@ -41,12 +34,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.cyborg</groupId>
-			<artifactId>FellowshipNetwork</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.cyborg</groupId>
-			<artifactId>FellowshipService</artifactId>
+			<artifactId>Utilities</artifactId>
 			<version>1.0</version>
 		</dependency>
 	</dependencies>

@@ -1,0 +1,13 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: FellowshipBackend
+
+logging:
+  level:
+    root: INFO
+
+jwt:
+  secret: 3795fb81da1c44672f85b274613587acf9fa7435a1f4c7a73daee718a7b629337f7a3a9bece496c7a294fa85c421377eaf8dce6afb91d5ebcd1ea3a4beff948a

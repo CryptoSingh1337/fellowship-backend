@@ -23,7 +23,9 @@
 	<modules>
 		<module>FellowshipDataAccess</module>
 		<module>FellowshipNetwork</module>
+		<module>FellowshipScheduler</module>
 		<module>FellowshipSecurity</module>
+		<module>FellowshipService</module>
 		<module>FellowshipWeb</module>
 		<module>Utilities</module>
 	</modules>

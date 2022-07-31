@@ -26,6 +26,31 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.cyborg</groupId>
+			<artifactId>FellowshipDataAccess</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.cyborg</groupId>
+			<artifactId>FellowshipNetwork</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.cyborg</groupId>
+			<artifactId>FellowshipSecurity</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.cyborg</groupId>
+			<artifactId>Utilities</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
