@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 public enum AppErrorCode {
 
     APP_CNT_404("Resource not exists", "400-001", HttpStatus.BAD_REQUEST),
+    APP_AUTH_001("Missing Authorization header", "401-001", HttpStatus.UNAUTHORIZED),
     App_INT_500("Internal server error", "500-001", HttpStatus.INTERNAL_SERVER_ERROR);
 
     private final String message;
