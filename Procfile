@@ -1,0 +1,1 @@
+web: java -Dspring.profiles.active=stage -jar $PATH_TO_JAR
