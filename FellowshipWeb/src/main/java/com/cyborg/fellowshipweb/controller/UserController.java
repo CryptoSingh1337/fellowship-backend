@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<ApiResponse<?>> getAllUsers() {
+    public ResponseEntity<ApiResponse<Response>> getAllUsers() {
         GetAllUsersResponse users = userService.getAllUsers();
         return ResponseEntity.status(OK)
                 .body(ApiResponseUtil.createApiSuccessResponse(users));
@@ -60,7 +60,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/token/refresh", produces = {"application/json"})
-    public ResponseEntity<?> refreshToken(HttpServletRequest req) {
+    public ResponseEntity<ApiResponse<Response>> refreshToken(HttpServletRequest req) {
         String authToken = req.getHeader(AUTHORIZATION);
         String token = jwtUtils.extractAuthorizationToken(authToken);
         if (token != null) {
