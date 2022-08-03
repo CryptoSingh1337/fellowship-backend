@@ -2,8 +2,4 @@
 spring:
   data:
     mongodb:
-      username: root
-      password: root
-      host: localhost
-      port: 27017
-      database: test
+      uri: mongodb://localhost:27017/test
