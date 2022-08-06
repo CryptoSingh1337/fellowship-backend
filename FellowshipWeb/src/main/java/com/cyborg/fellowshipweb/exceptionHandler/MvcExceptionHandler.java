@@ -1,20 +1,25 @@
 package com.cyborg.fellowshipweb.exceptionHandler;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.cyborg.fellowshipnetwork.global.ApiResponse;
 import com.cyborg.utilities.error.AppErrorCode;
 import com.cyborg.utilities.exception.ResourceNotExistException;
 import com.cyborg.utilities.response.ApiResponseUtil;
+import com.mongodb.MongoBulkWriteException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 /**
  * @author saranshk04
  */
-@RestControllerAdvice
+@ControllerAdvice
 public class MvcExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -27,5 +32,32 @@ public class MvcExceptionHandler {
     public ResponseEntity<ApiResponse<?>> handleResourceNotExistsException(ResourceNotExistException e) {
         return ResponseEntity.status(BAD_REQUEST)
                 .body(ApiResponseUtil.createApiErrorResponse(AppErrorCode.APP_CLT_404));
+    }
+
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<ApiResponse<?>> handleUsernameNotFoundException(UsernameNotFoundException e) {
+        return ResponseEntity.status(UNAUTHORIZED)
+                .body(ApiResponseUtil.createApiErrorResponse(AppErrorCode.APP_CLT_404));
+    }
+
+    @ExceptionHandler(JWTVerificationException.class)
+    public ResponseEntity<?> handleJwtVerificationException(JWTVerificationException e) {
+        return ResponseEntity.status(UNAUTHORIZED)
+                .body(ApiResponseUtil.createApiErrorResponse(AppErrorCode.APP_AUTH_002));
+    }
+
+    @ExceptionHandler(TokenExpiredException.class)
+    public ResponseEntity<?> handleTokenExpiredException(TokenExpiredException e) {
+        return ResponseEntity.status(UNAUTHORIZED)
+                .body(ApiResponseUtil.createApiErrorResponse(AppErrorCode.APP_AUTH_003));
+    }
+
+    @ExceptionHandler(MongoBulkWriteException.class)
+    public ResponseEntity<?> handleDuplicateKeyException(MongoBulkWriteException e) {
+        if (e.getWriteErrors().get(0).getMessage().startsWith("E11000 duplicate key error"))
+            return ResponseEntity.status(BAD_REQUEST)
+                    .body(ApiResponseUtil.createApiErrorResponse(AppErrorCode.APP_ENT_001));
+        return ResponseEntity.status(BAD_REQUEST)
+                .body(ApiResponseUtil.createApiErrorResponse(AppErrorCode.APP_INT_500));
     }
 }

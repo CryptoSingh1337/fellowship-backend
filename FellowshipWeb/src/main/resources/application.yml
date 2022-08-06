@@ -6,6 +6,9 @@ spring:
     name: FellowshipBackend
   quartz:
     auto-startup: false
+  data:
+    mongodb:
+      auto-index-creation: true
 
 logging:
   level:

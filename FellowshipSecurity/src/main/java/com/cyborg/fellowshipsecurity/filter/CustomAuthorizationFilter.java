@@ -1,6 +1,7 @@
 package com.cyborg.fellowshipsecurity.filter;
 
 import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.cyborg.utilities.error.AppErrorCode;
 import com.cyborg.utilities.jwt.JwtUtils;
@@ -49,7 +50,16 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             String token = jwtUtils.extractAuthorizationToken(authToken);
             if (token != null) {
                 JWTVerifier verifier = jwtUtils.getTokenVerifier();
-                DecodedJWT decodedJWT = verifier.verify(token);
+                DecodedJWT decodedJWT;
+                try {
+                    decodedJWT = verifier.verify(token);
+                } catch (TokenExpiredException e) {
+                    res.setStatus(HttpStatus.UNAUTHORIZED.value());
+                    res.setContentType("application/json");
+                    mapper.writeValue(res.getWriter(),
+                            ApiResponseUtil.createApiErrorResponse(AppErrorCode.APP_AUTH_003));
+                    return;
+                }
                 String username = decodedJWT.getSubject();
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(username, null, null);
