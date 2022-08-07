@@ -7,12 +7,14 @@ import com.cyborg.fellowshipnetwork.response.scholarship.CreateScholarshipInBulk
 import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipsResponse;
 import com.cyborg.fellowshipservice.mapper.ScholarshipMapper;
 import com.cyborg.fellowshipservice.scholarship.ScholarshipService;
+import com.mongodb.MongoWriteException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +41,6 @@ public class ScholarshipServiceImpl implements ScholarshipService {
     }
 
     @Override
-//    @Transactional
     public CreateScholarshipInBulkResponseModel createScholarshipsInBulk(
             List<CreateScholarshipRequestModel> scholarships) {
         // TODO: push each scholarship to the sqs for notification
@@ -47,7 +48,14 @@ public class ScholarshipServiceImpl implements ScholarshipService {
         List<Scholarship> scholarshipList = scholarships.stream()
                 .map(scholarshipMapper::createScholarshipRequestModelToScholarship).toList();
 
-        List<Scholarship> savedScholarships = scholarshipRepository.insert(scholarshipList);
+        List<Scholarship> savedScholarships = new ArrayList<>();
+        for (Scholarship scholarship : scholarshipList) {
+            try {
+                savedScholarships.add(scholarshipRepository.insert(scholarship));
+            } catch (MongoWriteException ignored) {
+            }
+        }
+
         return CreateScholarshipInBulkResponseModel.builder()
                 .documentCreated(savedScholarships.size())
                 .build();
