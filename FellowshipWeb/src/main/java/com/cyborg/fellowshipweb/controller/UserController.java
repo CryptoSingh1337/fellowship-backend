@@ -12,14 +12,19 @@ import com.cyborg.fellowshipservice.user.UserService;
 import com.cyborg.utilities.error.AppErrorCode;
 import com.cyborg.utilities.jwt.JwtUtils;
 import com.cyborg.utilities.response.ApiResponseUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.OK;
@@ -36,6 +41,20 @@ public class UserController {
 
     private final UserService userService;
     private final JwtUtils jwtUtils;
+    private final ObjectMapper mapper;
+
+    @GetMapping(produces = {"application/json"})
+    public ResponseEntity<?> getUser() {
+        Object principal = SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal();
+        Map<String, UserResponseModel> res = new HashMap<>(1);
+        res.put("user", userService.getUserResponseModel(principal.toString()));
+        String response = "";
+        try {
+            response = mapper.writeValueAsString(res);
+        } catch (JsonProcessingException ignored) {}
+        return ResponseEntity.ok(response);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<Response>> createUser(
