@@ -7,6 +7,7 @@ import com.cyborg.utilities.error.AppErrorCode;
 import com.cyborg.utilities.exception.ResourceNotExistException;
 import com.cyborg.utilities.response.ApiResponseUtil;
 import com.mongodb.MongoBulkWriteException;
+import com.mongodb.MongoWriteException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -50,6 +51,15 @@ public class MvcExceptionHandler {
     public ResponseEntity<?> handleTokenExpiredException(TokenExpiredException e) {
         return ResponseEntity.status(UNAUTHORIZED)
                 .body(ApiResponseUtil.createApiErrorResponse(AppErrorCode.APP_AUTH_003));
+    }
+
+    @ExceptionHandler(MongoWriteException.class)
+    public ResponseEntity<?> handleDuplicateKeyException(MongoWriteException e) {
+        if (e.getError().getMessage().startsWith("E11000 duplicate key error"))
+            return ResponseEntity.status(BAD_REQUEST)
+                    .body(ApiResponseUtil.createApiErrorResponse(AppErrorCode.APP_ENT_001));
+        return ResponseEntity.status(BAD_REQUEST)
+                .body(ApiResponseUtil.createApiErrorResponse(AppErrorCode.APP_INT_500));
     }
 
     @ExceptionHandler(MongoBulkWriteException.class)
