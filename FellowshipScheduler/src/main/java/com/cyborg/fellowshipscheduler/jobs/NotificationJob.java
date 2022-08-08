@@ -21,7 +21,7 @@ public class NotificationJob {
     private final SQSConsumer sqsConsumer;
     private final MailService mailService;
 
-    @Scheduled(cron = "*/45 * * * * *")
+    @Scheduled(cron = "0 0 0 * * *")
     void sendNotifications() {
         List<ScholarshipNotification> scholarshipNotifications = sqsConsumer.consumeMessageTillAvailable();
         if (!scholarshipNotifications.isEmpty())
