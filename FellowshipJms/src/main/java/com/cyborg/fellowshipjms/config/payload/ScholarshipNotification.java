@@ -10,7 +10,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Notification {
+@ToString
+public class ScholarshipNotification {
 
     private String title;
     private String description;

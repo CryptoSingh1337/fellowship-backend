@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ScholarshipNotification</title>
+</head>
+<body>
+    <h1>Fellowship - Team Cyborg</h1>
+    <h3>Scholarships</h3>
+    <div th:each="notification : ${list}">
+        <h4 th:text="${notification.title}"></h4>
+        <p th:text="${notification.description}"></p>
+        <a th:href="${notification.url}">Read more</a>
+    </div>
+</body>
+</html>

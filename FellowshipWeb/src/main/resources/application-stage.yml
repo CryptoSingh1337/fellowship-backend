@@ -4,6 +4,18 @@ spring:
     mongodb:
       uri: ${MONGO_URI}
 
+  # Mail
+  mail:
+    host: smtp.mailtrap.io
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    protocol: smtp
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+# SQS
 aws:
   sqs:
     queue:

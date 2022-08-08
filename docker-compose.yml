@@ -13,3 +13,11 @@ services:
       - "./volumes/mongo:/data/db"
     ports:
       - "27017:27017"
+#  mysql:
+#    image: mysql:latest
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#      - "./volumes/mysql:/var/lib/mysql"
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=root

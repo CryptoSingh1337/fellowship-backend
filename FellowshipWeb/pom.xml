@@ -38,6 +38,11 @@
 		</dependency>
 		<dependency>
 			<groupId>com.cyborg</groupId>
+			<artifactId>FellowshipJms</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.cyborg</groupId>
 			<artifactId>FellowshipNetwork</artifactId>
 			<version>1.0</version>
 		</dependency>

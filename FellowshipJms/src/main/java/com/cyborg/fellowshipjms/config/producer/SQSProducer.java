@@ -19,7 +19,7 @@ public class SQSProducer {
     private final SQSQueueConfig sqsQueueConfig;
 
     public <T> void publishToNotificationQueue(T payload) {
-        log.info("Sending user holding amount message {}", payload);
+        log.info("Sending scholarship payload: {}", payload);
         String endpoint = SQSUtil.get(sqsQueueConfig.getNotificationQueue());
         queueMessagingTemplate.convertAndSend(endpoint, payload);
     }

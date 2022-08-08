@@ -1,7 +1,7 @@
 package com.cyborg.fellowshipservice.mapper;
 
 import com.cyborg.fellowshipdataaccess.entity.Scholarship;
-import com.cyborg.fellowshipjms.config.payload.Notification;
+import com.cyborg.fellowshipjms.config.payload.ScholarshipNotification;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class NotificationMapper {
 
-    public Notification scholarshipToNotificationPayload(Scholarship scholarship) {
+    public ScholarshipNotification scholarshipToNotificationPayload(Scholarship scholarship) {
         String description = scholarship.getDescription();
-        return Notification.builder()
+        return ScholarshipNotification.builder()
                 .title(scholarship.getTitle())
                 .description(description.length() > 100 ?
                         String.format("%s...", description.substring(0, 100)) : description)

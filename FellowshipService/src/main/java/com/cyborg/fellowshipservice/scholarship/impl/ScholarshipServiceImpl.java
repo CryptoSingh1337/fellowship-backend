@@ -11,6 +11,7 @@ import com.cyborg.fellowshipservice.mapper.ScholarshipMapper;
 import com.cyborg.fellowshipservice.scholarship.ScholarshipService;
 import com.mongodb.MongoWriteException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 /**
  * @author saranshk04
  */
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ScholarshipServiceImpl implements ScholarshipService {
@@ -47,8 +49,7 @@ public class ScholarshipServiceImpl implements ScholarshipService {
     @Override
     public CreateScholarshipInBulkResponseModel createScholarshipsInBulk(
             List<CreateScholarshipRequestModel> scholarships) {
-        // TODO: push each scholarship to the sqs for notification
-
+        log.info("In createScholarshipsInBulk");
         List<Scholarship> scholarshipList = scholarships.stream()
                 .map(scholarshipMapper::createScholarshipRequestModelToScholarship).toList();
 
@@ -56,11 +57,13 @@ public class ScholarshipServiceImpl implements ScholarshipService {
         for (Scholarship scholarship : scholarshipList) {
             try {
                 savedScholarships.add(scholarshipRepository.insert(scholarship));
-                sqsProducer.publishToNotificationQueue(notificationMapper
-                        .scholarshipToNotificationPayload(scholarshipList.get(scholarshipList.size() - 1)));
             } catch (MongoWriteException ignored) {
             }
         }
+
+        for (Scholarship scholarship : scholarshipList)
+            sqsProducer.publishToNotificationQueue(notificationMapper
+                    .scholarshipToNotificationPayload(scholarship));
 
         return CreateScholarshipInBulkResponseModel.builder()
                 .documentCreated(savedScholarships.size())

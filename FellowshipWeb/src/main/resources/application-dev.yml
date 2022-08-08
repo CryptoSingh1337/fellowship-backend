@@ -1,9 +1,21 @@
-# MongoDB
 spring:
+  # MongoDB
   data:
     mongodb:
       uri: mongodb://localhost:27017/test
 
+  # Mail
+  mail:
+    host: smtp.mailtrap.io
+    port: 587
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+    protocol: smtp
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+# SQS
 aws:
   sqs:
     queue:

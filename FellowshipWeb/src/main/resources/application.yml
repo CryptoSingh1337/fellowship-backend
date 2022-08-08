@@ -4,12 +4,11 @@ server:
 spring:
   application:
     name: FellowshipBackend
-  quartz:
-    auto-startup: false
   data:
     mongodb:
       auto-index-creation: true
 
+# Aws
 cloud:
   aws:
     stack:
@@ -21,13 +20,16 @@ aws:
   sqs:
     accessKey: ${ACCESS_KEY}
     secretKey: ${SECRET_KEY}
-    names:
-      notification_queue: notification_queue
+    queue:
+      names:
+        notification_queue: notification_queue
 
+# Logging
 logging:
   level:
     root: INFO
 
+# Auth
 auth:
   login:
     path: /api/v1/login
@@ -44,8 +46,13 @@ jwt:
       expiration: 129600000
       secret: 3795fb81da1c44672f85b274613587acf9fa7435a1f4c7a73daee718a7b629337f7a3a9bece496c7a294fa85c421377eaf8dce6afb91d5ebcd1ea3a4beff948a
 
+# Custom
 skipUrls: /api/v1/login
 
 scholarships:
   page:
-    offset: 10
+    offset:
+
+mail:
+  from: ${SENDER_EMAIL}
+  to: ${RECIPIENT_EMAIL}
