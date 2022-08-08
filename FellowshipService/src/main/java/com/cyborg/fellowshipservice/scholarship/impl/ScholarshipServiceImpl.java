@@ -2,9 +2,11 @@ package com.cyborg.fellowshipservice.scholarship.impl;
 
 import com.cyborg.fellowshipdataaccess.entity.Scholarship;
 import com.cyborg.fellowshipdataaccess.repository.ScholarshipRepository;
+import com.cyborg.fellowshipjms.config.producer.SQSProducer;
 import com.cyborg.fellowshipnetwork.request.scholarship.CreateScholarshipRequestModel;
 import com.cyborg.fellowshipnetwork.response.scholarship.CreateScholarshipInBulkResponseModel;
 import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipsResponse;
+import com.cyborg.fellowshipservice.mapper.NotificationMapper;
 import com.cyborg.fellowshipservice.mapper.ScholarshipMapper;
 import com.cyborg.fellowshipservice.scholarship.ScholarshipService;
 import com.mongodb.MongoWriteException;
@@ -26,7 +28,9 @@ import java.util.stream.Collectors;
 public class ScholarshipServiceImpl implements ScholarshipService {
 
     private final ScholarshipRepository scholarshipRepository;
+    private final SQSProducer sqsProducer;
     private final ScholarshipMapper scholarshipMapper;
+    private final NotificationMapper notificationMapper;
     @Value("${scholarships.page.offset}")
     private int PAGE_OFFSET;
 
@@ -52,6 +56,8 @@ public class ScholarshipServiceImpl implements ScholarshipService {
         for (Scholarship scholarship : scholarshipList) {
             try {
                 savedScholarships.add(scholarshipRepository.insert(scholarship));
+                sqsProducer.publishToNotificationQueue(notificationMapper
+                        .scholarshipToNotificationPayload(scholarshipList.get(scholarshipList.size() - 1)));
             } catch (MongoWriteException ignored) {
             }
         }

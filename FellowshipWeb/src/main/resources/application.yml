@@ -10,6 +10,20 @@ spring:
     mongodb:
       auto-index-creation: true
 
+cloud:
+  aws:
+    stack:
+      auto: false
+    region:
+      static: ap-south-1
+
+aws:
+  sqs:
+    accessKey: ${ACCESS_KEY}
+    secretKey: ${SECRET_KEY}
+    names:
+      notification_queue: notification_queue
+
 logging:
   level:
     root: INFO

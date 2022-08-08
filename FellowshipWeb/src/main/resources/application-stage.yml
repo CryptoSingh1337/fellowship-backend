@@ -3,3 +3,9 @@ spring:
   data:
     mongodb:
       uri: ${MONGO_URI}
+
+aws:
+  sqs:
+    queue:
+      base: ${SQS_BASE}
+      suffix: ${SQS_SUFFIX}

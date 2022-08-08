@@ -3,3 +3,9 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/test
+
+aws:
+  sqs:
+    queue:
+      base: http://localhost:9324
+      suffix: queue
