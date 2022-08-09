@@ -17,6 +17,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,6 +58,7 @@ public class ScholarshipServiceImpl implements ScholarshipService {
         List<Scholarship> savedScholarships = new ArrayList<>();
         for (Scholarship scholarship : scholarshipList) {
             try {
+                scholarship.setCreatedAt(LocalDateTime.now(ZoneOffset.UTC));
                 savedScholarships.add(scholarshipRepository.insert(scholarship));
             } catch (MongoWriteException ignored) {
             }

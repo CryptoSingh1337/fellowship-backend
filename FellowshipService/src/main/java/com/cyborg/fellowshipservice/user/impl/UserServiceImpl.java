@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -62,6 +64,7 @@ public class UserServiceImpl implements UserService {
     public UserResponseModel createUser(CreateUserRequestModel createUserRequestModel) {
         User user = userMapper.createUserRequestModelToUser(createUserRequestModel);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setCreatedAt(LocalDateTime.now(ZoneOffset.UTC));
         return userMapper.userToUserResponseModel(userRepository.insert(user));
     }
 }

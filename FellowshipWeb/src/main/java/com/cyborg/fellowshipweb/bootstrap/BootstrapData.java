@@ -8,6 +8,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 /**
@@ -24,6 +26,7 @@ public class BootstrapData implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (userRepository.count() == 0) {
+            log.info("Creating users");
             userRepository.saveAll(createUsers());
         }
         log.info("User count: {}", userRepository.count());
@@ -37,6 +40,7 @@ public class BootstrapData implements CommandLineRunner {
                         .username("test_1")
                         .email("ipsum.ac@icloud.org")
                         .password(encoder.encode("123456"))
+                        .createdAt(LocalDateTime.now(ZoneOffset.UTC))
                         .build(),
                 User.builder()
                         .firstName("Hayes")
@@ -44,6 +48,7 @@ public class BootstrapData implements CommandLineRunner {
                         .username("test_2")
                         .email("diam.lorem.auctor@aol.net")
                         .password(encoder.encode("123456"))
+                        .createdAt(LocalDateTime.now(ZoneOffset.UTC))
                         .build(),
                 User.builder()
                         .firstName("Xanthus")
@@ -51,6 +56,7 @@ public class BootstrapData implements CommandLineRunner {
                         .username("test_3")
                         .email("egestas@icloud.ca")
                         .password(encoder.encode("123456"))
+                        .createdAt(LocalDateTime.now(ZoneOffset.UTC))
                         .build(),
                 User.builder()
                         .firstName("Ashton")
@@ -58,6 +64,7 @@ public class BootstrapData implements CommandLineRunner {
                         .username("test_4")
                         .email("porttitor.eros.nec@icloud.ca")
                         .password(encoder.encode("123456"))
+                        .createdAt(LocalDateTime.now(ZoneOffset.UTC))
                         .build(),
                 User.builder()
                         .firstName("Miriam")
@@ -65,6 +72,7 @@ public class BootstrapData implements CommandLineRunner {
                         .username("test_5")
                         .email("faucibus.morbi@hotmail.com")
                         .password(encoder.encode("123456"))
+                        .createdAt(LocalDateTime.now(ZoneOffset.UTC))
                         .build()
                 );
     }

@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
+
 /**
  * @author saranshk04
  */
@@ -28,4 +30,6 @@ public class Scholarship {
     private String description;
     private String deadline;
     private String country;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
