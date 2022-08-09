@@ -35,9 +35,10 @@ public class CleanupJob implements Runnable {
                 scholarshipsToBeRemove.add(scholarship.getId());
         }
 
-        if (!scholarshipsToBeRemove.isEmpty())
+        if (!scholarshipsToBeRemove.isEmpty()) {
+            log.info("Deleting the following scholarships: {}", scholarshipsToBeRemove);
             scholarshipRepository.deleteAllById(scholarshipsToBeRemove);
-        else
+        } else
             log.info("No scholarships for cleanup");
     }
 
