@@ -58,7 +58,8 @@ public class ScholarshipServiceImpl implements ScholarshipService {
         List<Scholarship> savedScholarships = new ArrayList<>();
         for (Scholarship scholarship : scholarshipList) {
             try {
-                scholarship.setCreatedAt(LocalDateTime.now(ZoneOffset.UTC));
+                if (scholarship.getCreatedAt() == null)
+                    scholarship.setCreatedAt(LocalDateTime.now(ZoneOffset.UTC));
                 savedScholarships.add(scholarshipRepository.insert(scholarship));
             } catch (MongoWriteException ignored) {
             }

@@ -21,3 +21,10 @@ aws:
     queue:
       base: http://localhost:9324
       suffix: queue
+
+# Scheduler
+scheduler:
+  jobs:
+    cron:
+      clean-up: "*/10 * * * * *"
+      notification: "*/10 * * * * *"

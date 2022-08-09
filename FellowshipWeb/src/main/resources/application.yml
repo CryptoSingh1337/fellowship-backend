@@ -52,6 +52,7 @@ skipUrls: /api/v1/login
 scholarships:
   page:
     offset: 10
+  expiration: 30
 
 mail:
   from: ${SENDER_EMAIL}

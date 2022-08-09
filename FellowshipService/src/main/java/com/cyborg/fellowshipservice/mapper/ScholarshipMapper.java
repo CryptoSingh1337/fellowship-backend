@@ -31,6 +31,7 @@ public class ScholarshipMapper {
                 .description(createScholarshipRequestModel.getDescription())
                 .deadline(createScholarshipRequestModel.getDeadline())
                 .country(createScholarshipRequestModel.getCountry())
+                .createdAt(createScholarshipRequestModel.getCreatedAt())
                 .build();
     }
 }

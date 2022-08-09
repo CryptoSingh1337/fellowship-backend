@@ -3,6 +3,8 @@ package com.cyborg.fellowshipnetwork.request.scholarship;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 /**
  * @author saranshk04
  */
@@ -16,4 +18,5 @@ public class CreateScholarshipRequestModel {
     private String description;
     private String deadline;
     private String country;
+    private LocalDateTime createdAt;
 }
