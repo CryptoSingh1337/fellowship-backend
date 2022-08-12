@@ -2,7 +2,8 @@ package com.cyborg.fellowshipservice.mapper;
 
 import com.cyborg.fellowshipdataaccess.entity.User;
 import com.cyborg.fellowshipnetwork.request.user.create.CreateUserRequestModel;
-import com.cyborg.fellowshipnetwork.response.user.UserResponseModel;
+import com.cyborg.fellowshipnetwork.response.user.UpdateUserDataResponse;
+import com.cyborg.fellowshipnetwork.response.user.UserResponse;
 import org.springframework.stereotype.Component;
 
 /**
@@ -21,12 +22,22 @@ public class UserMapper {
                 .build();
     }
 
-    public UserResponseModel userToUserResponseModel(User user) {
-        return UserResponseModel.builder()
+    public UserResponse userToUserResponseModel(User user) {
+        return UserResponse.builder()
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .username(user.getUsername())
                 .email(user.getEmail())
+                .build();
+    }
+
+    public UpdateUserDataResponse userToUpdateUserDataResponse(User user) {
+        return UpdateUserDataResponse.builder()
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .country(user.getCountry())
+                .program(user.getProgram())
                 .build();
     }
 }

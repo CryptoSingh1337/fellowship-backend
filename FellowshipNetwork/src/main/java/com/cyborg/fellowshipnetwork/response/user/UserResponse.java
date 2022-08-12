@@ -3,8 +3,6 @@ package com.cyborg.fellowshipnetwork.response.user;
 import com.cyborg.fellowshipnetwork.global.Response;
 import lombok.*;
 
-import java.util.List;
-
 /**
  * @author saranshk04
  */
@@ -13,7 +11,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GetAllUsersResponse implements Response {
+public class UserResponse implements Response {
 
-    List<UserResponse> users;
+    private String firstName;
+    private String lastName;
+    private String username;
+    private String email;
 }

@@ -28,4 +28,6 @@ public class User {
     private String password;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private String country;
+    private String program;
 }

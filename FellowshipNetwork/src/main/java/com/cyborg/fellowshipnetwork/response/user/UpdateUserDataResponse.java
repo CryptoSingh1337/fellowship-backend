@@ -11,10 +11,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserResponseModel implements Response {
+public class UpdateUserDataResponse implements Response {
 
     private String firstName;
     private String lastName;
-    private String username;
     private String email;
+    private String country;
+    private String program;
 }

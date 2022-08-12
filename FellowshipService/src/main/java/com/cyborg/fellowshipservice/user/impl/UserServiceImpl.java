@@ -3,8 +3,10 @@ package com.cyborg.fellowshipservice.user.impl;
 import com.cyborg.fellowshipdataaccess.entity.User;
 import com.cyborg.fellowshipdataaccess.repository.UserRepository;
 import com.cyborg.fellowshipnetwork.request.user.create.CreateUserRequestModel;
+import com.cyborg.fellowshipnetwork.request.user.update.UpdateUserDataRequest;
 import com.cyborg.fellowshipnetwork.response.user.GetAllUsersResponse;
-import com.cyborg.fellowshipnetwork.response.user.UserResponseModel;
+import com.cyborg.fellowshipnetwork.response.user.UpdateUserDataResponse;
+import com.cyborg.fellowshipnetwork.response.user.UserResponse;
 import com.cyborg.fellowshipservice.mapper.UserMapper;
 import com.cyborg.fellowshipservice.user.UserService;
 import com.cyborg.utilities.exception.ResourceNotExistException;
@@ -47,7 +49,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseModel getUserResponseModel(String username) {
+    public UserResponse getUserResponseModel(String username) {
         return userMapper.userToUserResponseModel(getUser(username));
     }
 
@@ -61,10 +63,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseModel createUser(CreateUserRequestModel createUserRequestModel) {
+    public UserResponse createUser(CreateUserRequestModel createUserRequestModel) {
         User user = userMapper.createUserRequestModelToUser(createUserRequestModel);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreatedAt(LocalDateTime.now(ZoneOffset.UTC));
         return userMapper.userToUserResponseModel(userRepository.insert(user));
+    }
+
+    @Override
+    public UpdateUserDataResponse updateUserData(String username, UpdateUserDataRequest updateUserDataRequest) {
+        User user = getUser(username);
+        user.setFirstName(updateUserDataRequest.getFirstName());
+        user.setLastName(updateUserDataRequest.getLastName());
+        user.setEmail(updateUserDataRequest.getEmail());
+        user.setCountry(updateUserDataRequest.getCountry());
+        user.setProgram(updateUserDataRequest.getProgram());
+        user.setUpdatedAt(LocalDateTime.now(ZoneOffset.UTC));
+        user = userRepository.save(user);
+        return userMapper.userToUpdateUserDataResponse(user);
     }
 }

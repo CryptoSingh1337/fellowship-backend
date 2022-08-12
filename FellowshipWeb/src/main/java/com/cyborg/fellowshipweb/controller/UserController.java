@@ -5,9 +5,11 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.cyborg.fellowshipnetwork.global.ApiResponse;
 import com.cyborg.fellowshipnetwork.global.Response;
 import com.cyborg.fellowshipnetwork.request.user.create.CreateUserRequestModel;
+import com.cyborg.fellowshipnetwork.request.user.update.UpdateUserDataRequest;
 import com.cyborg.fellowshipnetwork.response.login.RefreshTokenResponseModel;
 import com.cyborg.fellowshipnetwork.response.user.GetAllUsersResponse;
-import com.cyborg.fellowshipnetwork.response.user.UserResponseModel;
+import com.cyborg.fellowshipnetwork.response.user.UpdateUserDataResponse;
+import com.cyborg.fellowshipnetwork.response.user.UserResponse;
 import com.cyborg.fellowshipservice.user.UserService;
 import com.cyborg.utilities.error.AppErrorCode;
 import com.cyborg.utilities.jwt.JwtUtils;
@@ -47,7 +49,7 @@ public class UserController {
     public ResponseEntity<?> getUser() {
         Object principal = SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
-        Map<String, UserResponseModel> res = new HashMap<>(1);
+        Map<String, UserResponse> res = new HashMap<>(1);
         res.put("user", userService.getUserResponseModel(principal.toString()));
         String response = "";
         try {
@@ -59,9 +61,9 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<Response>> createUser(
             @Validated @RequestBody CreateUserRequestModel createUserRequestModel) {
-        UserResponseModel userResponseModel = userService.createUser(createUserRequestModel);
+        UserResponse userResponse = userService.createUser(createUserRequestModel);
         return ResponseEntity.status(OK)
-                .body(ApiResponseUtil.createApiSuccessResponse(userResponseModel));
+                .body(ApiResponseUtil.createApiSuccessResponse(userResponse));
     }
 
     @GetMapping("/all")
@@ -73,9 +75,17 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseEntity<ApiResponse<Response>> getUser(@PathVariable String username) {
-        UserResponseModel userResponseModel = userService.getUserResponseModel(username);
+        UserResponse userResponse = userService.getUserResponseModel(username);
         return ResponseEntity.status(OK)
-                .body(ApiResponseUtil.createApiSuccessResponse(userResponseModel));
+                .body(ApiResponseUtil.createApiSuccessResponse(userResponse));
+    }
+
+    @PutMapping
+    public ResponseEntity<ApiResponse<Response>> updateUserData(@RequestBody UpdateUserDataRequest userDataRequest) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        UpdateUserDataResponse response = userService.updateUserData(username, userDataRequest);
+        return ResponseEntity.status(OK)
+                .body(ApiResponseUtil.createApiSuccessResponse(response));
     }
 
     @PostMapping(value = "/token/refresh", produces = {"application/json"})
