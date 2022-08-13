@@ -1,5 +1,6 @@
 package com.cyborg.fellowshipservice.user.impl;
 
+import com.cyborg.fellowshipdataaccess.entity.Role;
 import com.cyborg.fellowshipdataaccess.entity.User;
 import com.cyborg.fellowshipdataaccess.repository.UserRepository;
 import com.cyborg.fellowshipnetwork.request.user.create.CreateUserRequestModel;
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         User user = getUser(username);
         log.debug("User with username: {} found", username);
         return new org.springframework.security.core.userdetails.User(user.getUsername(),
-                user.getPassword(), new ArrayList<>());
+                user.getPassword(), user.getRoles());
     }
 
     @Override
@@ -67,6 +67,7 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.createUserRequestModelToUser(createUserRequestModel);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreatedAt(LocalDateTime.now(ZoneOffset.UTC));
+        user.addRole(Role.USER);
         return userMapper.userToUserResponseModel(userRepository.insert(user));
     }
 

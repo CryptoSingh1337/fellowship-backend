@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author saranshk04
@@ -30,4 +32,9 @@ public class User {
     private LocalDateTime updatedAt;
     private String country;
     private String program;
+    private Collection<Role> roles = new ArrayList<>();
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
 }

@@ -1,5 +1,6 @@
 package com.cyborg.fellowshipweb.bootstrap;
 
+import com.cyborg.fellowshipdataaccess.entity.Role;
 import com.cyborg.fellowshipdataaccess.entity.User;
 import com.cyborg.fellowshipdataaccess.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,7 @@ public class BootstrapData implements CommandLineRunner {
                         .email("ipsum.ac@icloud.org")
                         .password(encoder.encode("123456"))
                         .createdAt(LocalDateTime.now(ZoneOffset.UTC))
+                        .roles(List.of(Role.ADMIN, Role.USER))
                         .build(),
                 User.builder()
                         .firstName("Hayes")
@@ -49,6 +51,7 @@ public class BootstrapData implements CommandLineRunner {
                         .email("diam.lorem.auctor@aol.net")
                         .password(encoder.encode("123456"))
                         .createdAt(LocalDateTime.now(ZoneOffset.UTC))
+                        .roles(List.of(Role.ADMIN, Role.USER))
                         .build(),
                 User.builder()
                         .firstName("Xanthus")
@@ -57,6 +60,7 @@ public class BootstrapData implements CommandLineRunner {
                         .email("egestas@icloud.ca")
                         .password(encoder.encode("123456"))
                         .createdAt(LocalDateTime.now(ZoneOffset.UTC))
+                        .roles(List.of(Role.ADMIN, Role.USER))
                         .build(),
                 User.builder()
                         .firstName("Ashton")
@@ -65,6 +69,7 @@ public class BootstrapData implements CommandLineRunner {
                         .email("porttitor.eros.nec@icloud.ca")
                         .password(encoder.encode("123456"))
                         .createdAt(LocalDateTime.now(ZoneOffset.UTC))
+                        .roles(List.of(Role.USER))
                         .build(),
                 User.builder()
                         .firstName("Miriam")
@@ -73,6 +78,7 @@ public class BootstrapData implements CommandLineRunner {
                         .email("faucibus.morbi@hotmail.com")
                         .password(encoder.encode("123456"))
                         .createdAt(LocalDateTime.now(ZoneOffset.UTC))
+                        .roles(List.of(Role.USER))
                         .build()
                 );
     }

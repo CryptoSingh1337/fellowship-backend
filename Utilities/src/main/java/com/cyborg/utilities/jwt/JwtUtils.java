@@ -6,11 +6,13 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.cyborg.fellowshipnetwork.response.login.RefreshTokenResponseModel;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author saranshk04
@@ -35,6 +37,9 @@ public class JwtUtils {
                                         Objects.requireNonNull(
                                                 env.getProperty("jwt.token.expiration")
                                         ))))
+                .withClaim("roles", user.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList()))
                 .withIssuer(ISSUER)
                 .sign(getTokenAlgorithm());
     }

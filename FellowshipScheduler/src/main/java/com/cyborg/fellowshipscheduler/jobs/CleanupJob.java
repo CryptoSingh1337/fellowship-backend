@@ -38,8 +38,7 @@ public class CleanupJob implements Runnable {
         if (!scholarshipsToBeRemove.isEmpty()) {
             log.info("Deleting the following scholarships: {}", scholarshipsToBeRemove);
             scholarshipRepository.deleteAllById(scholarshipsToBeRemove);
-        } else
-            log.info("No scholarships for cleanup");
+        }
     }
 
     @Override

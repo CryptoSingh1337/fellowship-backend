@@ -24,8 +24,6 @@ public class NotificationJob implements Runnable {
         List<ScholarshipNotification> scholarshipNotifications = sqsConsumer.consumeMessageTillAvailable();
         if (!scholarshipNotifications.isEmpty())
             mailService.sendMail(scholarshipNotifications);
-        else
-            log.info("No notifications exists");
     }
 
     @Override

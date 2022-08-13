@@ -3,6 +3,7 @@ package com.cyborg.fellowshipsecurity.filter;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.cyborg.fellowshipdataaccess.entity.Role;
 import com.cyborg.utilities.error.AppErrorCode;
 import com.cyborg.utilities.jwt.JwtUtils;
 import com.cyborg.utilities.response.ApiResponseUtil;
@@ -21,6 +22,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
@@ -61,8 +65,17 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     return;
                 }
                 String username = decodedJWT.getSubject();
+                String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
+                Collection<Role> authorities = new ArrayList<>();
+                Arrays.stream(roles)
+                        .map(role -> Arrays.stream(Role.values())
+                                .filter(r -> r.getAuthority().equals(role))
+                                .findFirst()
+                                .orElseThrow(() -> new RuntimeException("Role not found")))
+                        .forEach(authorities::add);
+
                 UsernamePasswordAuthenticationToken authenticationToken =
-                        new UsernamePasswordAuthenticationToken(username, null, null);
+                        new UsernamePasswordAuthenticationToken(username, null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                 filterChain.doFilter(req, res);
             } else {
