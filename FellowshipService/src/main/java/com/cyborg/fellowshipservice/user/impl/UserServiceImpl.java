@@ -11,8 +11,10 @@ import com.cyborg.fellowshipnetwork.response.user.UserResponse;
 import com.cyborg.fellowshipservice.mapper.UserMapper;
 import com.cyborg.fellowshipservice.user.UserService;
 import com.cyborg.utilities.exception.ResourceNotExistException;
+import com.cyborg.utilities.exception.UnauthorizedException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -49,11 +51,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse getUserResponseModel(String username) {
-        return userMapper.userToUserResponseModel(getUser(username));
+    public UserResponse getUserResponseModel(String accessUsername, String username) {
+        if (accessUsername.equals(username))
+            return userMapper.userToUserResponseModel(getUser(username));
+        throw new UnauthorizedException("Unauthorized");
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ADMIN')")
     public GetAllUsersResponse getAllUsers() {
         return GetAllUsersResponse.builder()
                 .users(userRepository.findAll().stream()

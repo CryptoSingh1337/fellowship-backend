@@ -23,6 +23,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>com.cyborg</groupId>
+			<artifactId>FellowshipDataAccess</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>

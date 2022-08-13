@@ -18,6 +18,7 @@ public enum AppErrorCode {
     APP_AUTH_001("Missing Authorization header", "401-001", UNAUTHORIZED),
     APP_AUTH_002("Invalid Authentication token", "401-002", UNAUTHORIZED),
     APP_AUTH_003("Authentication token expired", "401-003", UNAUTHORIZED),
+    APP_AUTH_004("Not authorized to access", "403-001", FORBIDDEN),
     APP_INT_500("Internal server error", "500-001", INTERNAL_SERVER_ERROR);
 
     private final String message;

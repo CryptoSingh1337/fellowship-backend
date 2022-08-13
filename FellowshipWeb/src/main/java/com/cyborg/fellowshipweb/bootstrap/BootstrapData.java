@@ -70,6 +70,8 @@ public class BootstrapData implements CommandLineRunner {
                         .password(encoder.encode("123456"))
                         .createdAt(LocalDateTime.now(ZoneOffset.UTC))
                         .roles(List.of(Role.USER))
+                        .country("India")
+                        .program("B.Tech")
                         .build(),
                 User.builder()
                         .firstName("Miriam")
@@ -79,6 +81,8 @@ public class BootstrapData implements CommandLineRunner {
                         .password(encoder.encode("123456"))
                         .createdAt(LocalDateTime.now(ZoneOffset.UTC))
                         .roles(List.of(Role.USER))
+                        .country("India")
+                        .program("B.Tech")
                         .build()
                 );
     }

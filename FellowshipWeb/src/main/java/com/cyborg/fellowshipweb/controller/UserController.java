@@ -50,7 +50,7 @@ public class UserController {
         Object principal = SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         Map<String, UserResponse> res = new HashMap<>(1);
-        res.put("user", userService.getUserResponseModel(principal.toString()));
+        res.put("user", userService.getUserResponseModel(principal.toString(), principal.toString()));
         String response = "";
         try {
             response = mapper.writeValueAsString(res);
@@ -75,7 +75,8 @@ public class UserController {
 
     @GetMapping("/{username}")
     public ResponseEntity<ApiResponse<Response>> getUser(@PathVariable String username) {
-        UserResponse userResponse = userService.getUserResponseModel(username);
+        String accessUsername = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+        UserResponse userResponse = userService.getUserResponseModel(accessUsername, username);
         return ResponseEntity.status(OK)
                 .body(ApiResponseUtil.createApiSuccessResponse(userResponse));
     }

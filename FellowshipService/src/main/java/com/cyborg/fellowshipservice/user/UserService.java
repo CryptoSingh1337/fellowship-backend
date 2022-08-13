@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 public interface UserService extends UserDetailsService {
 
     User getUser(String username);
-    UserResponse getUserResponseModel(String username);
+    UserResponse getUserResponseModel(String accessUsername, String username);
     GetAllUsersResponse getAllUsers();
     UserResponse createUser(CreateUserRequestModel createUserRequestModel);
 
