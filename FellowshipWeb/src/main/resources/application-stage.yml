@@ -26,5 +26,5 @@ aws:
 scheduler:
   jobs:
     cron:
-      clean-up: "0 0 0 * * *"
-      notification: "0 0 0 * * *"
+      clean-up: "0 0 0 * * ?"
+      notification: "0 0 0 * * ?"
