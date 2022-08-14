@@ -1,6 +1,7 @@
 package com.cyborg.fellowshipservice.scholarship;
 
 import com.cyborg.fellowshipnetwork.request.scholarship.CreateScholarshipRequestModel;
+import com.cyborg.fellowshipnetwork.request.scholarship.SearchScholarshipRequest;
 import com.cyborg.fellowshipnetwork.response.scholarship.CreateScholarshipInBulkResponseModel;
 import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipsResponse;
 
@@ -13,4 +14,6 @@ public interface ScholarshipService {
 
     GetAllScholarshipsResponse getAllScholarships(int page);
     CreateScholarshipInBulkResponseModel createScholarshipsInBulk(List<CreateScholarshipRequestModel> scholarships);
+
+    GetAllScholarshipsResponse searchScholarshipByTitleAndDescription(SearchScholarshipRequest request);
 }

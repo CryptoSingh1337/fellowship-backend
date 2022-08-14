@@ -1,9 +1,11 @@
 package com.cyborg.fellowshipservice.scholarship.impl;
 
+import com.cyborg.fellowshipdataaccess.entity.Degree;
 import com.cyborg.fellowshipdataaccess.entity.Scholarship;
 import com.cyborg.fellowshipdataaccess.repository.ScholarshipRepository;
 import com.cyborg.fellowshipjms.config.producer.SQSProducer;
 import com.cyborg.fellowshipnetwork.request.scholarship.CreateScholarshipRequestModel;
+import com.cyborg.fellowshipnetwork.request.scholarship.SearchScholarshipRequest;
 import com.cyborg.fellowshipnetwork.response.scholarship.CreateScholarshipInBulkResponseModel;
 import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipsResponse;
 import com.cyborg.fellowshipservice.mapper.NotificationMapper;
@@ -15,7 +17,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -32,6 +40,7 @@ import java.util.stream.Collectors;
 public class ScholarshipServiceImpl implements ScholarshipService {
 
     private final ScholarshipRepository scholarshipRepository;
+    private final MongoTemplate mongoTemplate;
     private final SQSProducer sqsProducer;
     private final ScholarshipMapper scholarshipMapper;
     private final NotificationMapper notificationMapper;
@@ -40,7 +49,7 @@ public class ScholarshipServiceImpl implements ScholarshipService {
 
     @Override
     public GetAllScholarshipsResponse getAllScholarships(int page) {
-        Pageable pageable = PageRequest.of(page, PAGE_OFFSET);
+        Pageable pageable = PageRequest.of(page, PAGE_OFFSET, Sort.by("createdAt").descending());
         return GetAllScholarshipsResponse.builder()
                 .scholarships(scholarshipRepository.findAll(pageable).stream()
                         .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
@@ -71,6 +80,53 @@ public class ScholarshipServiceImpl implements ScholarshipService {
 
         return CreateScholarshipInBulkResponseModel.builder()
                 .documentCreated(savedScholarships.size())
+                .build();
+    }
+
+    @Override
+    public GetAllScholarshipsResponse searchScholarshipByTitleAndDescription(SearchScholarshipRequest request) {
+
+        List<Degree> degrees = request.getDegrees();
+        List<String> countries = request.getCountries();
+        String searchQuery = request.getSearch();
+        Integer page = request.getPage();
+
+        countries = countries.stream()
+                .map(String::toLowerCase)
+                .collect(Collectors.toList());
+
+        Pageable pageable = PageRequest.of(page, PAGE_OFFSET);
+        Query query = new Query()
+                .with(pageable);
+
+        if (degrees.isEmpty() && countries.isEmpty() && !StringUtils.hasText(searchQuery)) {
+            return GetAllScholarshipsResponse.builder()
+                    .scholarships(scholarshipRepository.findAll(pageable).stream()
+                            .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
+                            .collect(Collectors.toList()))
+                    .build();
+        }
+
+
+        if (!degrees.isEmpty())
+            query.addCriteria(Criteria.where("degrees")
+                    .in(degrees));
+
+        if (!countries.isEmpty())
+            query.addCriteria(Criteria.where("country")
+                    .in(countries));
+
+        if (StringUtils.hasText(searchQuery))
+            query.addCriteria(TextCriteria.forLanguage("en")
+                    .caseSensitive(false)
+                    .matchingPhrase(searchQuery));
+
+        List<Scholarship> scholarships = mongoTemplate.find(query, Scholarship.class);
+
+        return GetAllScholarshipsResponse.builder()
+                .scholarships(scholarships.stream()
+                        .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
+                        .collect(Collectors.toList()))
                 .build();
     }
 }

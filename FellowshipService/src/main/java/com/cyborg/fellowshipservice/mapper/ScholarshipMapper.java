@@ -19,6 +19,8 @@ public class ScholarshipMapper {
                 .description(scholarship.getDescription())
                 .deadline(scholarship.getDeadline())
                 .country(scholarship.getCountry())
+                .createdAt(scholarship.getCreatedAt())
+                .degrees(scholarship.getDegrees())
                 .build();
     }
 
@@ -30,8 +32,10 @@ public class ScholarshipMapper {
                 .grant(createScholarshipRequestModel.getGrant())
                 .description(createScholarshipRequestModel.getDescription())
                 .deadline(createScholarshipRequestModel.getDeadline())
-                .country(createScholarshipRequestModel.getCountry())
+                .country(createScholarshipRequestModel.getCountry().toLowerCase())
+                .score(0.0f)
                 .createdAt(createScholarshipRequestModel.getCreatedAt())
+                .degrees(createScholarshipRequestModel.getDegrees())
                 .build();
     }
 }

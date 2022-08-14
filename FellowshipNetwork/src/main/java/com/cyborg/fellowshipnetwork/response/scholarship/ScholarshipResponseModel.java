@@ -1,6 +1,10 @@
 package com.cyborg.fellowshipnetwork.response.scholarship;
 
+import com.cyborg.fellowshipdataaccess.entity.Degree;
 import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author saranshk04
@@ -18,4 +22,6 @@ public class ScholarshipResponseModel {
     private String description;
     private String deadline;
     private String country;
+    private List<Degree> degrees;
+    private LocalDateTime createdAt;
 }
