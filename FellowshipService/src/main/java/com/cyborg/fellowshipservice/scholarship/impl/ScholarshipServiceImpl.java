@@ -7,6 +7,7 @@ import com.cyborg.fellowshipjms.config.producer.SQSProducer;
 import com.cyborg.fellowshipnetwork.request.scholarship.CreateScholarshipRequestModel;
 import com.cyborg.fellowshipnetwork.request.scholarship.SearchScholarshipRequest;
 import com.cyborg.fellowshipnetwork.response.scholarship.CreateScholarshipInBulkResponseModel;
+import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipCountriesResponseModel;
 import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipsResponse;
 import com.cyborg.fellowshipservice.mapper.NotificationMapper;
 import com.cyborg.fellowshipservice.mapper.ScholarshipMapper;
@@ -54,6 +55,15 @@ public class ScholarshipServiceImpl implements ScholarshipService {
                 .scholarships(scholarshipRepository.findAll(pageable).stream()
                         .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
                         .collect(Collectors.toList()))
+                .build();
+    }
+
+    @Override
+    public GetAllScholarshipCountriesResponseModel getAllScholarshipCountries() {
+        List<String> countries = mongoTemplate
+                .findDistinct("country", Scholarship.class, String.class);
+        return GetAllScholarshipCountriesResponseModel.builder()
+                .countries(countries)
                 .build();
     }
 
