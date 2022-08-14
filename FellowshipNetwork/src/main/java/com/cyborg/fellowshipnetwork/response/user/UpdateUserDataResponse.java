@@ -1,5 +1,6 @@
 package com.cyborg.fellowshipnetwork.response.user;
 
+import com.cyborg.fellowshipdataaccess.entity.Degree;
 import com.cyborg.fellowshipnetwork.global.Response;
 import lombok.*;
 
@@ -17,5 +18,5 @@ public class UpdateUserDataResponse implements Response {
     private String lastName;
     private String email;
     private String country;
-    private String program;
+    private Degree degree;
 }

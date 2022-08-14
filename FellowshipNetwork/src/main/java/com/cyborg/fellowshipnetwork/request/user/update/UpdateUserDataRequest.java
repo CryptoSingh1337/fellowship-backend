@@ -1,5 +1,6 @@
 package com.cyborg.fellowshipnetwork.request.user.update;
 
+import com.cyborg.fellowshipdataaccess.entity.Degree;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,5 +15,5 @@ public class UpdateUserDataRequest {
     private String lastName;
     private String email;
     private String country;
-    private String program;
+    private Degree degree;
 }

@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
 
+import static com.cyborg.fellowshipdataaccess.entity.Degree.BACHELOR;
+import static com.cyborg.fellowshipdataaccess.entity.Degree.MASTER;
+
 /**
  * @author saranshk04
  */
@@ -70,8 +73,8 @@ public class BootstrapData implements CommandLineRunner {
                         .password(encoder.encode("123456"))
                         .createdAt(LocalDateTime.now(ZoneOffset.UTC))
                         .roles(List.of(Role.USER))
-                        .country("India")
-                        .program("B.Tech")
+                        .country("india")
+                        .degree(BACHELOR)
                         .build(),
                 User.builder()
                         .firstName("Miriam")
@@ -81,8 +84,8 @@ public class BootstrapData implements CommandLineRunner {
                         .password(encoder.encode("123456"))
                         .createdAt(LocalDateTime.now(ZoneOffset.UTC))
                         .roles(List.of(Role.USER))
-                        .country("India")
-                        .program("B.Tech")
+                        .country("united states")
+                        .degree(MASTER)
                         .build()
                 );
     }

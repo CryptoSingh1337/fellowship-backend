@@ -30,7 +30,7 @@ public class UserMapper {
                 .email(user.getEmail())
                 .roles(user.getRoles())
                 .country(user.getCountry())
-                .program(user.getProgram())
+                .degree(user.getDegree())
                 .build();
     }
 
@@ -40,7 +40,7 @@ public class UserMapper {
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .country(user.getCountry())
-                .program(user.getProgram())
+                .degree(user.getDegree())
                 .build();
     }
 }

@@ -31,7 +31,7 @@ public class User {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private String country;
-    private String program;
+    private Degree degree;
     private Collection<Role> roles = new ArrayList<>();
 
     public void addRole(Role role) {
