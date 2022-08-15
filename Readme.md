@@ -371,7 +371,7 @@ Response:
 }
 ```
 
-### Sample User data
+## Sample User data
 ```json
 [
     {
@@ -440,7 +440,7 @@ Response:
 ]
 ```
 
-### Sample Scholarship data
+## Sample Scholarship data
 ```json
 [
     {
