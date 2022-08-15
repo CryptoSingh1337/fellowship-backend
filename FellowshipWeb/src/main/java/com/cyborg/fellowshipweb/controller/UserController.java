@@ -17,7 +17,6 @@ import com.cyborg.utilities.response.ApiResponseUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -35,7 +34,6 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 /**
  * @author saranshk04
  */
-@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/user")
@@ -45,7 +43,7 @@ public class UserController {
     private final JwtUtils jwtUtils;
     private final ObjectMapper mapper;
 
-    @GetMapping(produces = {"application/json"})
+    @GetMapping(value = "", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<?> getUser() {
         Object principal = SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
@@ -58,7 +56,7 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/create")
+    @PostMapping(value = "/create", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> createUser(
             @Validated @RequestBody CreateUserRequestModel createUserRequestModel) {
         UserResponse userResponse = userService.createUser(createUserRequestModel);
@@ -66,14 +64,14 @@ public class UserController {
                 .body(ApiResponseUtil.createApiSuccessResponse(userResponse));
     }
 
-    @GetMapping("/all")
+    @GetMapping(value = "/all", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> getAllUsers() {
         GetAllUsersResponse users = userService.getAllUsers();
         return ResponseEntity.status(OK)
                 .body(ApiResponseUtil.createApiSuccessResponse(users));
     }
 
-    @GetMapping("/{username}")
+    @GetMapping(value = "/{username}", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> getUser(@PathVariable String username) {
         String accessUsername = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         UserResponse userResponse = userService.getUserResponseModel(accessUsername, username);
@@ -81,15 +79,16 @@ public class UserController {
                 .body(ApiResponseUtil.createApiSuccessResponse(userResponse));
     }
 
-    @PutMapping
-    public ResponseEntity<ApiResponse<Response>> updateUserData(@RequestBody UpdateUserDataRequest userDataRequest) {
+    @PutMapping(value = "/update", consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<ApiResponse<Response>> updateUserData(
+            @Validated @RequestBody UpdateUserDataRequest userDataRequest) {
         String username = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         UpdateUserDataResponse response = userService.updateUserData(username, userDataRequest);
         return ResponseEntity.status(OK)
                 .body(ApiResponseUtil.createApiSuccessResponse(response));
     }
 
-    @PostMapping(value = "/token/refresh", produces = {"application/json"})
+    @PostMapping(value = "/token/refresh", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> refreshToken(HttpServletRequest req) {
         String authToken = req.getHeader(AUTHORIZATION);
         String token = jwtUtils.extractAuthorizationToken(authToken);

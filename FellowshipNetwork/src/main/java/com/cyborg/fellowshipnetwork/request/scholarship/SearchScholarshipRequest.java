@@ -20,7 +20,7 @@ public class SearchScholarshipRequest {
     private List<Degree> degrees;
     @NotNull
     private List<String> countries;
-    private String search;
     @NotNull
     private Integer page;
+    private String search;
 }

@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(updateUserDataRequest.getFirstName());
         user.setLastName(updateUserDataRequest.getLastName());
         user.setEmail(updateUserDataRequest.getEmail());
-        user.setCountry(updateUserDataRequest.getCountry());
+        user.setCountry(updateUserDataRequest.getCountry().toLowerCase());
         user.setDegree(updateUserDataRequest.getDegree());
         user.setUpdatedAt(LocalDateTime.now(ZoneOffset.UTC));
         user = userRepository.save(user);

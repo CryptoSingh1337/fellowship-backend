@@ -4,6 +4,10 @@ import com.cyborg.fellowshipdataaccess.entity.Degree;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author saranshk04
  */
@@ -11,9 +15,15 @@ import lombok.Setter;
 @Setter
 public class UpdateUserDataRequest {
 
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
+    @NotBlank
+    @Email
     private String email;
+    @NotBlank
     private String country;
+    @NotNull
     private Degree degree;
 }

@@ -28,21 +28,22 @@ public class ScholarshipController {
 
     private final ScholarshipService scholarshipService;
 
-    @GetMapping("/all")
+    @GetMapping(value = "/all", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> getAllScholarships(@RequestParam Integer page) {
         GetAllScholarshipsResponse scholarshipsResponse = scholarshipService.getAllScholarships(page);
         return ResponseEntity.status(OK)
                 .body(ApiResponseUtil.createApiSuccessResponse(scholarshipsResponse));
     }
 
-    @GetMapping("/get/countries")
+    @GetMapping(value = "/get/countries", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> getAllScholarshipCountries() {
-        GetAllScholarshipCountriesResponseModel countriesResponseModel = scholarshipService.getAllScholarshipCountries();
+        GetAllScholarshipCountriesResponseModel countriesResponseModel = scholarshipService
+                .getAllScholarshipCountries();
         return ResponseEntity.status(OK)
                 .body(ApiResponseUtil.createApiSuccessResponse(countriesResponseModel));
     }
 
-    @PostMapping("/get")
+    @PostMapping(value = "/get", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> getAllScholarshipsByFilter(
             @Validated @RequestBody SearchScholarshipRequest request) {
         GetAllScholarshipsResponse scholarshipsResponse = scholarshipService
@@ -51,7 +52,7 @@ public class ScholarshipController {
                 .body(ApiResponseUtil.createApiSuccessResponse(scholarshipsResponse));
     }
 
-    @PostMapping("/create/bulk")
+    @PostMapping(value = "/create/bulk", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> createScholarshipsInBulk(
             @Validated @RequestBody List<CreateScholarshipRequestModel> scholarships) {
         CreateScholarshipInBulkResponseModel createScholarshipInBulkResponseModel =
