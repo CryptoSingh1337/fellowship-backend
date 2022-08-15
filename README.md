@@ -264,29 +264,18 @@ Response:
   "data": {
     "scholarships": [
       {
-        "title": "International Students Support Contest 2022-2023",
-        "url": "https://kidatschool.com/international-students-support-contest-2022-2023",
-        "grant": "Up to $2,000 awards",
-        "description": "Applications are now open for a scholarships contest programme for 2022-2023! Our goal is to provide financial assistance and mentorship to students without the necessary means who demonstrate alignment with our values and want to further their education for the 2022-2023 academic year.\n\nDo you have a special academic interest, or are you passionate about something on a practical or theoretical level? Would you like financial support for your research project, dissertation, project, or anything else? Then you should participate in our competition!",
-        "deadline": "2023-06-30 00:00",
-        "country": "india",
-        "degrees": [
-          "BACHELOR",
-          "PHD"
+        "title": "Study Product Management with a 50% Scholarship",
+        "url": "https://scholarships.harbour.space/product-management?utm_source=studyportals&utm_medium=listing&utm_campaign=both_b2c_pm-launch",
+        "grant": "Get up to 11,450€ off your tuition fee",
+        "description": "We’re searching for talented individuals to join the first batch of our Product Management programme.\n\n  \n\nIf you would like to kick-start your product career, don’t miss this opportunity!",
+        "deadline": "2022-03-31 00:00",
+        "country": [
+          "india"
         ],
-        "createdAt": "2022-08-14T03:38:46.305"
-      },
-      {
-        "title": "Human Resource (HR) - Free Course From Windsor University's MBA",
-        "url": "https://windsoruniversity.us/academics/master-of-business-administration-mba/mba-curriculum/phri/",
-        "grant": "100% free",
-        "description": "In this course, you will learn how to use integrated coaching, organizational development, career planning, and counseling skills to design, manage, and evaluate plans that improve the individual’s productivity, employability, and job satisfaction, as well as organizational effectiveness, employment, management development, customer service, and quality management. This course includes psychology, structure behavior, adult education principles, activity counseling, ability testing and evaluation, program design, consulting practice, structure development, and applications to issues.",
-        "deadline": "2022-05-14 00:00",
-        "country": "india",
         "degrees": [
-          "MASTER"
+          "BACHELOR"
         ],
-        "createdAt": "2022-08-14T03:38:46.369"
+        "createdAt": "2022-08-15T13:36:02.559"
       },
       {
         "title": "Women in Tech Scholarship: Up to 50% off your Tuition Fee on all of our Programmes",
@@ -294,24 +283,44 @@ Response:
         "grant": "50% off tuition fees",
         "description": "We created the [Women in Tech Scholarship](https://bit.ly/Women-in-Tech-Scholarship), to do our part to build a world that is diverse, equitable, and inclusive.\n\nApply by March 31, 2022, to receive up to 50% off your tuition fee and a reduced application fee.\n\nLast year we awarded €412,000 to 25 students.\n\nOur programmes:\n\n* Data Science\n* Computer Science\n* Front-end Development\n* Cyber Security\n* Product Management\n* Fintech\n* Interaction Design\n* Digital Marketing\n* High-tech Entrepreneurship",
         "deadline": "2022-03-31 00:00",
-        "country": "india",
+        "country": [
+          "india"
+        ],
         "degrees": [
           "MASTER",
           "PHD"
         ],
-        "createdAt": "2022-08-14T03:38:46.372"
+        "createdAt": "2022-08-15T13:36:02.428"
       },
       {
-        "title": "Study Product Management with a 50% Scholarship",
-        "url": "https://scholarships.harbour.space/product-management?utm_source=studyportals&utm_medium=listing&utm_campaign=both_b2c_pm-launch",
-        "grant": "Get up to 11,450€ off your tuition fee",
-        "description": "We’re searching for talented individuals to join the first batch of our Product Management programme.\n\n  \n\nIf you would like to kick-start your product career, don’t miss this opportunity!",
-        "deadline": "2022-03-31 00:00",
-        "country": "india",
-        "degrees": [
-          "BACHELOR"
+        "title": "Human Resource (HR) - Free Course From Windsor University's MBA",
+        "url": "https://windsoruniversity.us/academics/master-of-business-administration-mba/mba-curriculum/phri/",
+        "grant": "100% free",
+        "description": "In this course, you will learn how to use integrated coaching, organizational development, career planning, and counseling skills to design, manage, and evaluate plans that improve the individual’s productivity, employability, and job satisfaction, as well as organizational effectiveness, employment, management development, customer service, and quality management. This course includes psychology, structure behavior, adult education principles, activity counseling, ability testing and evaluation, program design, consulting practice, structure development, and applications to issues.",
+        "deadline": "2022-05-14 00:00",
+        "country": [
+          "united states"
         ],
-        "createdAt": "2022-08-14T03:38:46.376"
+        "degrees": [
+          "MASTER"
+        ],
+        "createdAt": "2022-08-15T13:36:02.299"
+      },
+      {
+        "title": "International Students Support Contest 2022-2023",
+        "url": "https://kidatschool.com/international-students-support-contest-2022-2023",
+        "grant": "Up to $2,000 awards",
+        "description": "Applications are now open for a scholarships contest programme for 2022-2023! Our goal is to provide financial assistance and mentorship to students without the necessary means who demonstrate alignment with our values and want to further their education for the 2022-2023 academic year.\n\nDo you have a special academic interest, or are you passionate about something on a practical or theoretical level? Would you like financial support for your research project, dissertation, project, or anything else? Then you should participate in our competition!",
+        "deadline": "2023-06-30 00:00",
+        "country": [
+          "india",
+          "united states"
+        ],
+        "degrees": [
+          "BACHELOR",
+          "PHD"
+        ],
+        "createdAt": "2022-08-15T13:36:02.123"
       }
     ]
   },
@@ -332,7 +341,10 @@ Payload:
 ```json
 [
   {
-    "country": "INDIA",
+    "country": [
+      "INDIA",
+      "United STATES"
+    ],
     "title": "International Students Support Contest 2022-2023",
     "url": "https://kidatschool.com/international-students-support-contest-2022-2023",
     "grant": "Up to $2,000 awards",
@@ -344,7 +356,9 @@ Payload:
     ]
   },
   {
-    "country": "United STATES",
+    "country": [
+      "United STATES"
+    ],
     "title": "Human Resource (HR) - Free Course From Windsor University's MBA",
     "url": "https://windsoruniversity.us/academics/master-of-business-administration-mba/mba-curriculum/phri/",
     "grant": "100% free",
@@ -355,7 +369,9 @@ Payload:
     ]
   },
   {
-    "country": "india",
+    "country": [
+      "india"
+    ],
     "title": "Women in Tech Scholarship: Up to 50% off your Tuition Fee on all of our Programmes",
     "url": "https://bit.ly/Women-in-Tech-Scholarship",
     "grant": "50% off tuition fees",
@@ -367,7 +383,9 @@ Payload:
     ]
   },
   {
-    "country": "india",
+    "country": [
+      "india"
+    ],
     "title": "Study Product Management with a 50% Scholarship",
     "url": "https://scholarships.harbour.space/product-management?utm_source=studyportals&utm_medium=listing&utm_campaign=both_b2c_pm-launch",
     "grant": "Get up to 11,450€ off your tuition fee",
@@ -526,7 +544,10 @@ Response:
 ```json
 [
   {
-    "country": "INDIA",
+    "country": [
+      "INDIA",
+      "United STATES"
+    ],
     "title": "International Students Support Contest 2022-2023",
     "url": "https://kidatschool.com/international-students-support-contest-2022-2023",
     "grant": "Up to $2,000 awards",
@@ -538,7 +559,9 @@ Response:
     ]
   },
   {
-    "country": "United STATES",
+    "country": [
+      "United STATES"
+    ],
     "title": "Human Resource (HR) - Free Course From Windsor University's MBA",
     "url": "https://windsoruniversity.us/academics/master-of-business-administration-mba/mba-curriculum/phri/",
     "grant": "100% free",
@@ -549,7 +572,9 @@ Response:
     ]
   },
   {
-    "country": "india",
+    "country": [
+      "india"
+    ],
     "title": "Women in Tech Scholarship: Up to 50% off your Tuition Fee on all of our Programmes",
     "url": "https://bit.ly/Women-in-Tech-Scholarship",
     "grant": "50% off tuition fees",
@@ -561,7 +586,9 @@ Response:
     ]
   },
   {
-    "country": "india",
+    "country": [
+      "india"
+    ],
     "title": "Study Product Management with a 50% Scholarship",
     "url": "https://scholarships.harbour.space/product-management?utm_source=studyportals&utm_medium=listing&utm_campaign=both_b2c_pm-launch",
     "grant": "Get up to 11,450€ off your tuition fee",
