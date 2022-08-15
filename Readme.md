@@ -1,5 +1,10 @@
 # Fellowship Backend
 
+![](https://img.shields.io/badge/Java-17-blue)
+![](https://img.shields.io/badge/Spring%20Boot-2.6.10-70b34a)
+![](https://img.shields.io/badge/Nuxt.js-2.15.8-2ddc87)
+![](https://img.shields.io/badge/Vuetify.js-2.6.1-2e95f2)
+
 A Scholarship Aggregator which updates in real time. It has the following functionality:
 
 - Minimalistic UI
