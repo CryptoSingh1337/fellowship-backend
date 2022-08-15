@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.stream.Collectors;
 
 /**
  * @author saranshk04
@@ -61,9 +60,7 @@ public class UserServiceImpl implements UserService {
     @PreAuthorize("hasAuthority('ADMIN')")
     public GetAllUsersResponse getAllUsers() {
         return GetAllUsersResponse.builder()
-                .users(userRepository.findAll().stream()
-                        .map(userMapper::userToUserResponseModel)
-                        .collect(Collectors.toList()))
+                .users(userMapper.userListToUserResponseModelList(userRepository.findAll()))
                 .build();
     }
 
