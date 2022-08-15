@@ -32,9 +32,11 @@ public class User {
     private LocalDateTime updatedAt;
     private String country;
     private Degree degree;
-    private Collection<Role> roles = new ArrayList<>();
+    private Collection<Role> roles;
 
     public void addRole(Role role) {
+        if (roles == null)
+            this.roles = new ArrayList<>();
         this.roles.add(role);
     }
 }
