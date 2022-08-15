@@ -1,5 +1,33 @@
 # Fellowship Backend
 
+A Scholarship Aggregator which updates in real time. It has the following functionality:
+
+- Minimalistic UI
+- Scrap scholarships from various sources.
+- Admin dashboard where admin can update scholarships, user's data and can add scholarships from the portal itself using the JSON file.
+- Sends notifications to the registered user about the recent scholarship which are added on the portal.
+- Auto remove all the expired scholarships.
+- Recommend scholarships based on user details (country, degree).
+- User can search scholarships based on country, degree and phrases.
+
+**Tech stack**:
+
+- **Back-end -**
+  - Java
+  - Spring Boot
+  - Spring Security
+  - Spring Scheduler
+  - Spring Data Mongo
+  - Java Mail API
+  - MongoDB
+  - Amazon SQS
+  - Heroku (Deployment)
+- **Front-end -**
+  - JavaScript
+  - Nuxt.js (SSR and SSG)
+  - Vuetify
+  - Vercel (Deployment)
+
 ## User Endpoints
 
 ### GET - Login
