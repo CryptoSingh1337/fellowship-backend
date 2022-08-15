@@ -23,6 +23,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -68,6 +69,7 @@ public class ScholarshipServiceImpl implements ScholarshipService {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ADMIN')")
     public CreateScholarshipInBulkResponseModel createScholarshipsInBulk(
             List<CreateScholarshipRequestModel> scholarships) {
         log.info("In createScholarshipsInBulk");
