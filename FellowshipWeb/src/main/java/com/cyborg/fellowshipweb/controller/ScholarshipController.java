@@ -28,14 +28,14 @@ public class ScholarshipController {
 
     private final ScholarshipService scholarshipService;
 
-    @GetMapping(value = "/all", consumes = {"application/json"}, produces = {"application/json"})
+    @GetMapping(value = "/all", produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> getAllScholarships(@RequestParam Integer page) {
         GetAllScholarshipsResponse scholarshipsResponse = scholarshipService.getAllScholarships(page);
         return ResponseEntity.status(OK)
                 .body(ApiResponseUtil.createApiSuccessResponse(scholarshipsResponse));
     }
 
-    @GetMapping(value = "/get/countries", consumes = {"application/json"}, produces = {"application/json"})
+    @GetMapping(value = "/get/countries", produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> getAllScholarshipCountries() {
         GetAllScholarshipCountriesResponseModel countriesResponseModel = scholarshipService
                 .getAllScholarshipCountries();

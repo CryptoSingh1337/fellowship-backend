@@ -43,7 +43,7 @@ public class UserController {
     private final JwtUtils jwtUtils;
     private final ObjectMapper mapper;
 
-    @GetMapping(value = "", consumes = {"application/json"}, produces = {"application/json"})
+    @GetMapping(value = "", produces = {"application/json"})
     public ResponseEntity<?> getUser() {
         Object principal = SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
@@ -64,14 +64,14 @@ public class UserController {
                 .body(ApiResponseUtil.createApiSuccessResponse(userResponse));
     }
 
-    @GetMapping(value = "/all", consumes = {"application/json"}, produces = {"application/json"})
+    @GetMapping(value = "/all", produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> getAllUsers() {
         GetAllUsersResponse users = userService.getAllUsers();
         return ResponseEntity.status(OK)
                 .body(ApiResponseUtil.createApiSuccessResponse(users));
     }
 
-    @GetMapping(value = "/{username}", consumes = {"application/json"}, produces = {"application/json"})
+    @GetMapping(value = "/{username}", produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> getUser(@PathVariable String username) {
         String accessUsername = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
         UserResponse userResponse = userService.getUserResponseModel(accessUsername, username);
@@ -88,7 +88,7 @@ public class UserController {
                 .body(ApiResponseUtil.createApiSuccessResponse(response));
     }
 
-    @PostMapping(value = "/token/refresh", consumes = {"application/json"}, produces = {"application/json"})
+    @PostMapping(value = "/token/refresh", produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> refreshToken(HttpServletRequest req) {
         String authToken = req.getHeader(AUTHORIZATION);
         String token = jwtUtils.extractAuthorizationToken(authToken);
