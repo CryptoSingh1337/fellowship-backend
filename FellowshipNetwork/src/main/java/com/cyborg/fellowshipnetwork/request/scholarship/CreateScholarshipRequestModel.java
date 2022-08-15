@@ -27,7 +27,7 @@ public class CreateScholarshipRequestModel {
     @NotBlank
     private String deadline;
     @NotBlank
-    private String country;
+    private List<String> country;
     @NotNull
     private List<Degree> degrees;
     private LocalDateTime createdAt;

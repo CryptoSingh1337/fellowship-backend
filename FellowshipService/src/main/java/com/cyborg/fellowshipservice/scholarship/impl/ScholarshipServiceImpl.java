@@ -12,7 +12,6 @@ import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipsRespo
 import com.cyborg.fellowshipservice.mapper.NotificationMapper;
 import com.cyborg.fellowshipservice.mapper.ScholarshipMapper;
 import com.cyborg.fellowshipservice.scholarship.ScholarshipService;
-import com.mongodb.MongoWriteException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -81,12 +80,14 @@ public class ScholarshipServiceImpl implements ScholarshipService {
             try {
                 if (scholarship.getCreatedAt() == null)
                     scholarship.setCreatedAt(LocalDateTime.now(ZoneOffset.UTC));
-                savedScholarships.add(scholarshipRepository.insert(scholarship));
-            } catch (MongoWriteException ignored) {
+                Scholarship savedScholarship = scholarshipRepository.insert(scholarship);
+                savedScholarships.add(savedScholarship);
+            } catch (Exception e) {
+                log.info("Exception: {}", e.getMessage());
             }
         }
 
-        for (Scholarship scholarship : scholarshipList)
+        for (Scholarship scholarship : savedScholarships)
             sqsProducer.publishToNotificationQueue(notificationMapper
                     .scholarshipToNotificationPayload(scholarship));
 

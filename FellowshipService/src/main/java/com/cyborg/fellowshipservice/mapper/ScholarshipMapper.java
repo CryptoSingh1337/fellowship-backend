@@ -5,6 +5,8 @@ import com.cyborg.fellowshipnetwork.request.scholarship.CreateScholarshipRequest
 import com.cyborg.fellowshipnetwork.response.scholarship.ScholarshipResponseModel;
 import org.springframework.stereotype.Component;
 
+import java.util.stream.Collectors;
+
 /**
  * @author saranshk04
  */
@@ -32,7 +34,9 @@ public class ScholarshipMapper {
                 .grant(createScholarshipRequestModel.getGrant())
                 .description(createScholarshipRequestModel.getDescription())
                 .deadline(createScholarshipRequestModel.getDeadline())
-                .country(createScholarshipRequestModel.getCountry().toLowerCase())
+                .country(createScholarshipRequestModel.getCountry().stream()
+                        .map(String::toLowerCase)
+                        .collect(Collectors.toList()))
                 .score(0.0f)
                 .createdAt(createScholarshipRequestModel.getCreatedAt())
                 .degrees(createScholarshipRequestModel.getDegrees())

@@ -32,7 +32,7 @@ public class Scholarship {
     @TextIndexed
     private String description;
     private String deadline;
-    private String country;
+    private List<String> country;
     private List<Degree> degrees;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
