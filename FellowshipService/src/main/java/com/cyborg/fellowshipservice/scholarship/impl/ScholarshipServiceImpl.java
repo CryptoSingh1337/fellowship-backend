@@ -98,7 +98,7 @@ public class ScholarshipServiceImpl implements ScholarshipService {
     }
 
     @Override
-    public GetAllScholarshipsResponse searchScholarshipByTitleAndDescription(SearchScholarshipRequest request) {
+    public GetAllScholarshipsResponse searchScholarshipByFilter(SearchScholarshipRequest request) {
 
         Degree degree = request.getDegree();
         List<String> countries = request.getCountries();

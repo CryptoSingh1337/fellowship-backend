@@ -19,5 +19,5 @@ public interface ScholarshipService {
 
     CreateScholarshipInBulkResponseModel createScholarshipsInBulk(List<CreateScholarshipRequestModel> scholarships);
 
-    GetAllScholarshipsResponse searchScholarshipByTitleAndDescription(SearchScholarshipRequest request);
+    GetAllScholarshipsResponse searchScholarshipByFilter(SearchScholarshipRequest request);
 }

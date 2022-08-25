@@ -47,7 +47,7 @@ public class ScholarshipController {
     public ResponseEntity<ApiResponse<Response>> getAllScholarshipsByFilter(
             @Validated @RequestBody SearchScholarshipRequest request) {
         GetAllScholarshipsResponse scholarshipsResponse = scholarshipService
-                .searchScholarshipByTitleAndDescription(request);
+                .searchScholarshipByFilter(request);
         return ResponseEntity.status(OK)
                 .body(ApiResponseUtil.createApiSuccessResponse(scholarshipsResponse));
     }
