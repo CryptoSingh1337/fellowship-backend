@@ -102,7 +102,11 @@ public class ScholarshipServiceImpl implements ScholarshipService {
 
         List<Degree> degrees = request.getDegrees();
         List<String> countries = request.getCountries();
+        List<String> programme = request.getProgramme();
+        List<String> branch = request.getBranch();
+        List<String> category = request.getCategory();
         String searchQuery = request.getSearch();
+        Integer income = request.getIncome();
         Integer page = request.getPage();
 
         countries = countries.stream()
@@ -113,7 +117,9 @@ public class ScholarshipServiceImpl implements ScholarshipService {
         Query query = new Query()
                 .with(pageable);
 
-        if (degrees.isEmpty() && countries.isEmpty() && !StringUtils.hasText(searchQuery)) {
+        if (degrees.isEmpty() && countries.isEmpty() && programme.isEmpty() &&
+                branch.isEmpty() && category.isEmpty() && income == null &&
+                !StringUtils.hasText(searchQuery)) {
             return GetAllScholarshipsResponse.builder()
                     .scholarships(getConvertedScholarshipPage(pageable))
                     .build();
@@ -123,19 +129,55 @@ public class ScholarshipServiceImpl implements ScholarshipService {
             query.addCriteria(Criteria.where("degrees")
                     .in(degrees));
 
-        if (!countries.isEmpty())
+        if (!countries.isEmpty()) {
+            countries = countries.stream()
+                    .map(String::toLowerCase)
+                    .collect(Collectors.toList());
             query.addCriteria(Criteria.where("country")
                     .in(countries));
+        }
 
-        if (StringUtils.hasText(searchQuery))
+        if (!programme.isEmpty()) {
+            programme = programme.stream()
+                    .map(String::toLowerCase)
+                    .collect(Collectors.toList());
+            query.addCriteria(Criteria.where("programme")
+                    .in(programme));
+        }
+
+        if (!branch.isEmpty()) {
+            branch = branch.stream()
+                    .map(String::toLowerCase)
+                    .collect(Collectors.toList());
+            query.addCriteria(Criteria.where("branch")
+                    .in(branch));
+        }
+
+        if (!category.isEmpty()) {
+            category = category.stream()
+                    .map(String::toUpperCase)
+                    .collect(Collectors.toList());
+            query.addCriteria(Criteria.where("category")
+                    .in(category));
+        }
+
+        if (income != null && income >= 20_000 && income <= 7_00_000) {
+            query.addCriteria(Criteria.where("income")
+                    .lt(income));
+        }
+
+
+        if (StringUtils.hasText(searchQuery)) {
             query.addCriteria(TextCriteria.forLanguage("en")
                     .caseSensitive(false)
                     .matchingPhrase(searchQuery));
+        }
 
         List<ScholarshipResponseModel> scholarships = mongoTemplate.find(query, Scholarship.class).stream()
                 .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
                 .collect(Collectors.toList());
 
+        System.out.println(query);
         return GetAllScholarshipsResponse.builder()
                 .scholarships(PageableExecutionUtils.getPage(scholarships, pageable, () -> mongoTemplate.count(query, Scholarship.class)))
                 .build();

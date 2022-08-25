@@ -33,7 +33,11 @@ public class Scholarship {
     private String description;
     private String deadline;
     private List<String> country;
+    private List<String> programme;
+    private List<String> branch;
+    private List<String> category;
     private List<Degree> degrees;
+    private Integer income;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     @TextScore

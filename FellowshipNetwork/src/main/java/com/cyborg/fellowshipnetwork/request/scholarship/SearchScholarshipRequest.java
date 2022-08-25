@@ -21,6 +21,13 @@ public class SearchScholarshipRequest {
     @NotNull
     private List<String> countries;
     @NotNull
-    private Integer page;
+    private List<String> programme;
+    @NotNull
+    private List<String> branch;
+    @NotNull
+    private List<String> category;
     private String search;
+    private Integer income;
+    @NotNull
+    private Integer page;
 }

@@ -21,8 +21,12 @@ public class ScholarshipMapper {
                 .description(scholarship.getDescription())
                 .deadline(scholarship.getDeadline())
                 .country(scholarship.getCountry())
-                .createdAt(scholarship.getCreatedAt())
+                .programme(scholarship.getProgramme())
+                .branch(scholarship.getBranch())
+                .category(scholarship.getCategory())
                 .degrees(scholarship.getDegrees())
+                .income(scholarship.getIncome())
+                .createdAt(scholarship.getCreatedAt())
                 .build();
     }
 
@@ -37,9 +41,20 @@ public class ScholarshipMapper {
                 .country(createScholarshipRequestModel.getCountry().stream()
                         .map(String::toLowerCase)
                         .collect(Collectors.toList()))
+                .programme(createScholarshipRequestModel.getProgramme().stream()
+                        .map(String::toLowerCase)
+                        .collect(Collectors.toList()))
+                .branch(createScholarshipRequestModel.getBranch().stream()
+                        .map(String::toLowerCase)
+                        .collect(Collectors.toList()))
+                .category(createScholarshipRequestModel.getCategory().stream()
+                        .map(String::toUpperCase)
+                        .collect(Collectors.toList()))
+                .degrees(createScholarshipRequestModel.getDegrees())
+                .income(createScholarshipRequestModel.getIncome() == null ? 20_000 :
+                        createScholarshipRequestModel.getIncome())
                 .score(0.0f)
                 .createdAt(createScholarshipRequestModel.getCreatedAt())
-                .degrees(createScholarshipRequestModel.getDegrees())
                 .build();
     }
 }

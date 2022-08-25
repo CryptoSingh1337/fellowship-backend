@@ -28,7 +28,16 @@ public class CreateScholarshipRequestModel {
     private String deadline;
     @NotBlank
     private List<String> country;
+    @NotBlank
+    private List<String> programme;
+    @NotBlank
+    private List<String> branch;
+    @NotBlank
+    private List<String> category;
     @NotNull
     private List<Degree> degrees;
+    @NotNull
+    private Integer income;
+    // TODO: to be remove in prod
     private LocalDateTime createdAt;
 }
