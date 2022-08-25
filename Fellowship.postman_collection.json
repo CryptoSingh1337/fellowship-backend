@@ -1,0 +1,1428 @@
+{
+	"info": {
+		"_postman_id": "0d1a90a4-e8d5-40db-8e09-a5234d1e9403",
+		"name": "Fellowship",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13580425"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const json = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"accessToken\", json.data.accessToken);\r",
+									"postman.setEnvironmentVariable(\"refreshToken\", json.data.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const json = JSON.parse(pm.request.body);\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"username\", json.username);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"test_1\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/v1/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"test_1\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/v1/login",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json;charset=ISO-8859-1"
+								},
+								{
+									"key": "Content-Length",
+									"value": "365"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Aug 2022 15:39:00 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responseStatus\": \"SUCCESS\",\n    \"data\": {\n        \"accessToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0XzEiLCJpc3MiOm51bGwsImV4cCI6MTY1OTYyNzU0MH0.LNTr-N95ETZb_UWHhV2S3t8hpqqV4mVRti24ozJ3wAs\",\n        \"refreshToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0XzEiLCJpc3MiOm51bGwsImV4cCI6MTY1OTY3MDc0MH0.-LJxGlP2ORtfjGDIe9VY4VxmB36Bq7GE3eXhRKU8QXg\"\n    },\n    \"error\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Refresh token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const json = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"accessToken\", json.data.accessToken);\r",
+									"postman.setEnvironmentVariable(\"refreshToken\", json.data.refreshToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{refreshToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/api/v1/user/token/refresh",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"token",
+								"refresh"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Refresh token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/api/v1/user/token/refresh",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"token",
+										"refresh"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Aug 2022 16:08:53 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responseStatus\": \"SUCCESS\",\n    \"data\": {\n        \"accessToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0XzEiLCJpc3MiOm51bGwsImV4cCI6MTY1OTYyOTMzM30.J8C8xtM6GquSHtDx5DU5ykevyCC4V9DhkJjKCdTNVG8\",\n        \"refreshToken\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0XzEiLCJpc3MiOm51bGwsImV4cCI6MTY1OTY3MjUzM30.hUVFeZRcvyJ9GbZEmnm4l8CwVu1yIyZHgKlOQmdxp4Y\"\n    },\n    \"error\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Saransh\",\r\n    \"lastName\": \"Kumar\",\r\n    \"username\": \"test_6\",\r\n    \"password\": \"123456\",\r\n    \"email\": \"abc@xyz.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/v1/user/create",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"Saransh\",\r\n    \"lastName\": \"Kumar\",\r\n    \"username\": \"test_6\",\r\n    \"password\": \"123456\",\r\n    \"email\": \"abc@xyz.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/v1/user/create",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 03 Aug 2022 15:56:25 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responseStatus\": \"SUCCESS\",\n    \"data\": {\n        \"firstName\": \"Saransh\",\n        \"lastName\": \"Kumar\",\n        \"username\": \"test_3\",\n        \"email\": \"abc@xyz.com\"\n    },\n    \"error\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/api/v1/user/{{username}}",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"{{username}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/api/v1/user/{{username}}",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"{{username}}"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Aug 2022 03:44:01 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responseStatus\": \"SUCCESS\",\n    \"data\": {\n        \"firstName\": \"Josephine\",\n        \"lastName\": \"Page\",\n        \"username\": \"test_1\",\n        \"email\": \"ipsum.ac@icloud.org\",\n        \"country\": null,\n        \"program\": null,\n        \"roles\": [\n            \"ADMIN\",\n            \"USER\"\n        ]\n    },\n    \"error\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/api/v1/user/all",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"all"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all users",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/api/v1/user/all",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"all"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Aug 2022 03:44:13 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responseStatus\": \"SUCCESS\",\n    \"data\": {\n        \"users\": [\n            {\n                \"firstName\": \"Josephine\",\n                \"lastName\": \"Page\",\n                \"username\": \"test_1\",\n                \"email\": \"ipsum.ac@icloud.org\",\n                \"country\": null,\n                \"program\": null,\n                \"roles\": [\n                    \"ADMIN\",\n                    \"USER\"\n                ]\n            },\n            {\n                \"firstName\": \"Hayes\",\n                \"lastName\": \"Contreras\",\n                \"username\": \"test_2\",\n                \"email\": \"diam.lorem.auctor@aol.net\",\n                \"country\": null,\n                \"program\": null,\n                \"roles\": [\n                    \"ADMIN\",\n                    \"USER\"\n                ]\n            },\n            {\n                \"firstName\": \"Xanthus\",\n                \"lastName\": \"Mejia\",\n                \"username\": \"test_3\",\n                \"email\": \"egestas@icloud.ca\",\n                \"country\": null,\n                \"program\": null,\n                \"roles\": [\n                    \"ADMIN\",\n                    \"USER\"\n                ]\n            },\n            {\n                \"firstName\": \"Ashton\",\n                \"lastName\": \"Travis\",\n                \"username\": \"test_4\",\n                \"email\": \"porttitor.eros.nec@icloud.ca\",\n                \"country\": \"India\",\n                \"program\": \"B.Tech\",\n                \"roles\": [\n                    \"USER\"\n                ]\n            },\n            {\n                \"firstName\": \"Miriam\",\n                \"lastName\": \"Rocha\",\n                \"username\": \"test_5\",\n                \"email\": \"faucibus.morbi@hotmail.com\",\n                \"country\": \"India\",\n                \"program\": \"B.Tech\",\n                \"roles\": [\n                    \"USER\"\n                ]\n            }\n        ]\n    },\n    \"error\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Update user details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Saransh\",\r\n    \"lastName\": \"Kumar\",\r\n    \"email\": \"abcd@xyz.com\",\r\n    \"country\": \"India\",\r\n    \"degree\": \"MASTER\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/v1/user/update",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update user details",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"Saransh\",\r\n    \"lastName\": \"Kumar\",\r\n    \"email\": \"abcd@xyz.com\",\r\n    \"country\": \"India\",\r\n    \"degree\": \"MASTER\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/v1/user/update",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "Cowboy"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-Xss-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000 ; includeSubDomains"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 15 Aug 2022 05:40:12 GMT"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 vegur"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responseStatus\": \"SUCCESS\",\n    \"data\": {\n        \"firstName\": \"Saransh\",\n        \"lastName\": \"Kumar\",\n        \"email\": \"abcd@xyz.com\",\n        \"country\": \"india\",\n        \"degree\": \"MASTER\"\n    },\n    \"error\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Scholarship",
+			"item": [
+				{
+					"name": "Get all",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/api/v1/scholarship/all?page=0",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"scholarship",
+								"all"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/api/v1/scholarship/all?page=0",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"scholarship",
+										"all"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Aug 2022 03:38:59 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responseStatus\": \"SUCCESS\",\n    \"data\": {\n        \"scholarships\": [\n            {\n                \"title\": \"International Students Support Contest 2022-2023\",\n                \"url\": \"https://kidatschool.com/international-students-support-contest-2022-2023\",\n                \"grant\": \"Up to $2,000 awards\",\n                \"description\": \"Applications are now open for a scholarships contest programme for 2022-2023! Our goal is to provide financial assistance and mentorship to students without the necessary means who demonstrate alignment with our values and want to further their education for the 2022-2023 academic year.\\n\\nDo you have a special academic interest, or are you passionate about something on a practical or theoretical level? Would you like financial support for your research project, dissertation, project, or anything else? Then you should participate in our competition!\",\n                \"deadline\": \"2023-06-30 00:00\",\n                \"country\": \"india\",\n                \"degrees\": [\n                    \"BACHELOR\",\n                    \"PHD\"\n                ],\n                \"createdAt\": \"2022-08-14T03:38:46.305\"\n            },\n            {\n                \"title\": \"Human Resource (HR) - Free Course From Windsor University's MBA\",\n                \"url\": \"https://windsoruniversity.us/academics/master-of-business-administration-mba/mba-curriculum/phri/\",\n                \"grant\": \"100% free\",\n                \"description\": \"In this course, you will learn how to use integrated coaching, organizational development, career planning, and counseling skills to design, manage, and evaluate plans that improve the individual’s productivity, employability, and job satisfaction, as well as organizational effectiveness, employment, management development, customer service, and quality management. This course includes psychology, structure behavior, adult education principles, activity counseling, ability testing and evaluation, program design, consulting practice, structure development, and applications to issues.\",\n                \"deadline\": \"2022-05-14 00:00\",\n                \"country\": \"india\",\n                \"degrees\": [\n                    \"MASTER\"\n                ],\n                \"createdAt\": \"2022-08-14T03:38:46.369\"\n            },\n            {\n                \"title\": \"Women in Tech Scholarship: Up to 50% off your Tuition Fee on all of our Programmes\",\n                \"url\": \"https://bit.ly/Women-in-Tech-Scholarship\",\n                \"grant\": \"50% off tuition fees\",\n                \"description\": \"We created the [Women in Tech Scholarship](https://bit.ly/Women-in-Tech-Scholarship), to do our part to build a world that is diverse, equitable, and inclusive.\\n\\nApply by March 31, 2022, to receive up to 50% off your tuition fee and a reduced application fee.\\n\\nLast year we awarded €412,000 to 25 students.\\n\\nOur programmes:\\n\\n* Data Science\\n* Computer Science\\n* Front-end Development\\n* Cyber Security\\n* Product Management\\n* Fintech\\n* Interaction Design\\n* Digital Marketing\\n* High-tech Entrepreneurship\",\n                \"deadline\": \"2022-03-31 00:00\",\n                \"country\": \"india\",\n                \"degrees\": [\n                    \"MASTER\",\n                    \"PHD\"\n                ],\n                \"createdAt\": \"2022-08-14T03:38:46.372\"\n            },\n            {\n                \"title\": \"Study Product Management with a 50% Scholarship\",\n                \"url\": \"https://scholarships.harbour.space/product-management?utm_source=studyportals&utm_medium=listing&utm_campaign=both_b2c_pm-launch\",\n                \"grant\": \"Get up to 11,450€ off your tuition fee\",\n                \"description\": \"We’re searching for talented individuals to join the first batch of our Product Management programme.\\n\\n  \\n\\nIf you would like to kick-start your product career, don’t miss this opportunity!\",\n                \"deadline\": \"2022-03-31 00:00\",\n                \"country\": \"india\",\n                \"degrees\": [\n                    \"BACHELOR\"\n                ],\n                \"createdAt\": \"2022-08-14T03:38:46.376\"\n            }\n        ]\n    },\n    \"error\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Create scholarships in bulk",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"country\": [\r\n            \"INDIA\",\r\n            \"United STATES\"\r\n        ],\r\n        \"title\": \"International Students Support Contest 2022-2023\",\r\n        \"url\": \"https://kidatschool.com/international-students-support-contest-2022-2023\",\r\n        \"grant\": \"Up to $2,000 awards\",\r\n        \"description\": \"Applications are now open for a scholarships contest programme for 2022-2023! Our goal is to provide financial assistance and mentorship to students without the necessary means who demonstrate alignment with our values and want to further their education for the 2022-2023 academic year.\\n\\nDo you have a special academic interest, or are you passionate about something on a practical or theoretical level? Would you like financial support for your research project, dissertation, project, or anything else? Then you should participate in our competition!\",\r\n        \"deadline\": \"2023-06-30 00:00\",\r\n        \"degrees\": [\r\n            \"BACHELOR\",\r\n            \"PHD\"\r\n        ]\r\n    },\r\n    {\r\n        \"country\": [\r\n            \"United STATES\"\r\n        ],\r\n        \"title\": \"Human Resource (HR) - Free Course From Windsor University's MBA\",\r\n        \"url\": \"https://windsoruniversity.us/academics/master-of-business-administration-mba/mba-curriculum/phri/\",\r\n        \"grant\": \"100% free\",\r\n        \"description\": \"In this course, you will learn how to use integrated coaching, organizational development, career planning, and counseling skills to design, manage, and evaluate plans that improve the individual’s productivity, employability, and job satisfaction, as well as organizational effectiveness, employment, management development, customer service, and quality management. This course includes psychology, structure behavior, adult education principles, activity counseling, ability testing and evaluation, program design, consulting practice, structure development, and applications to issues.\",\r\n        \"deadline\": \"2022-05-14 00:00\",\r\n        \"degrees\": [\r\n            \"MASTER\"\r\n        ]\r\n    },\r\n    {\r\n        \"country\": [\r\n            \"india\"\r\n        ],\r\n        \"title\": \"Women in Tech Scholarship: Up to 50% off your Tuition Fee on all of our Programmes\",\r\n        \"url\": \"https://bit.ly/Women-in-Tech-Scholarship\",\r\n        \"grant\": \"50% off tuition fees\",\r\n        \"description\": \"We created the [Women in Tech Scholarship](https://bit.ly/Women-in-Tech-Scholarship), to do our part to build a world that is diverse, equitable, and inclusive.\\n\\nApply by March 31, 2022, to receive up to 50% off your tuition fee and a reduced application fee.\\n\\nLast year we awarded €412,000 to 25 students.\\n\\nOur programmes:\\n\\n* Data Science\\n* Computer Science\\n* Front-end Development\\n* Cyber Security\\n* Product Management\\n* Fintech\\n* Interaction Design\\n* Digital Marketing\\n* High-tech Entrepreneurship\",\r\n        \"deadline\": \"2022-03-31 00:00\",\r\n        \"degrees\": [\r\n            \"MASTER\",\r\n            \"PHD\"\r\n        ]\r\n    },\r\n    {\r\n        \"country\": [\r\n            \"india\"\r\n        ],\r\n        \"title\": \"Study Product Management with a 50% Scholarship\",\r\n        \"url\": \"https://scholarships.harbour.space/product-management?utm_source=studyportals&utm_medium=listing&utm_campaign=both_b2c_pm-launch\",\r\n        \"grant\": \"Get up to 11,450€ off your tuition fee\",\r\n        \"description\": \"We’re searching for talented individuals to join the first batch of our Product Management programme.\\n\\n  \\n\\nIf you would like to kick-start your product career, don’t miss this opportunity!\",\r\n        \"deadline\": \"2022-03-31 00:00\",\r\n        \"degrees\": [\r\n            \"BACHELOR\"\r\n        ]\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/v1/scholarship/create/bulk",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"scholarship",
+								"create",
+								"bulk"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create scholarships in bulk",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"country\": \"india\",\r\n        \"title\": \"International Students Support Contest 2022-2023\",\r\n        \"url\": \"https://kidatschool.com/international-students-support-contest-2022-2023\",\r\n        \"grant\": \"Up to $2,000 awards\",\r\n        \"description\": \"Applications are now open for a scholarships contest programme for 2022-2023! Our goal is to provide financial assistance and mentorship to students without the necessary means who demonstrate alignment with our values and want to further their education for the 2022-2023 academic year.\\n\\nDo you have a special academic interest, or are you passionate about something on a practical or theoretical level? Would you like financial support for your research project, dissertation, project, or anything else? Then you should participate in our competition!\",\r\n        \"deadline\": \"2023-06-30 00:00\"\r\n    },\r\n    {\r\n        \"country\": \"india\",\r\n        \"title\": \"Human Resource (HR) - Free Course From Windsor University's MBA\",\r\n        \"url\": \"https://windsoruniversity.us/academics/master-of-business-administration-mba/mba-curriculum/phri/\",\r\n        \"grant\": \"100% free\",\r\n        \"description\": \"In this course, you will learn how to use integrated coaching, organizational development, career planning, and counseling skills to design, manage, and evaluate plans that improve the individual’s productivity, employability, and job satisfaction, as well as organizational effectiveness, employment, management development, customer service, and quality management. This course includes psychology, structure behavior, adult education principles, activity counseling, ability testing and evaluation, program design, consulting practice, structure development, and applications to issues.\",\r\n        \"deadline\": \"2022-05-14 00:00\"\r\n    },\r\n    {\r\n        \"country\": \"india\",\r\n        \"title\": \"Women in Tech Scholarship: Up to 50% off your Tuition Fee on all of our Programmes\",\r\n        \"url\": \"https://bit.ly/Women-in-Tech-Scholarship\",\r\n        \"grant\": \"50% off tuition fees\",\r\n        \"description\": \"We created the [Women in Tech Scholarship](https://bit.ly/Women-in-Tech-Scholarship), to do our part to build a world that is diverse, equitable, and inclusive.\\n\\nApply by March 31, 2022, to receive up to 50% off your tuition fee and a reduced application fee.\\n\\nLast year we awarded €412,000 to 25 students.\\n\\nOur programmes:\\n\\n* Data Science\\n* Computer Science\\n* Front-end Development\\n* Cyber Security\\n* Product Management\\n* Fintech\\n* Interaction Design\\n* Digital Marketing\\n* High-tech Entrepreneurship\",\r\n        \"deadline\": \"2022-03-31 00:00\"\r\n    },\r\n    {\r\n        \"country\": \"india\",\r\n        \"title\": \"Study Product Management with a 50% Scholarship\",\r\n        \"url\": \"https://scholarships.harbour.space/product-management?utm_source=studyportals&utm_medium=listing&utm_campaign=both_b2c_pm-launch\",\r\n        \"grant\": \"Get up to 11,450€ off your tuition fee\",\r\n        \"description\": \"We’re searching for talented individuals to join the first batch of our Product Management programme.\\n\\n  \\n\\nIf you would like to kick-start your product career, don’t miss this opportunity!\",\r\n        \"deadline\": \"2022-03-31 00:00\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/v1/scholarship/create/bulk",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"scholarship",
+										"create",
+										"bulk"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 06 Aug 2022 07:35:04 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responseStatus\": \"SUCCESS\",\n    \"data\": {\n        \"documentCreated\": 4\n    },\n    \"error\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Clean up scholarship",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"country\": \"india\",\r\n        \"title\": \"International Students Support Contest 2022-2023\",\r\n        \"url\": \"https://google.com\",\r\n        \"grant\": \"Up to $2,000 awards\",\r\n        \"description\": \"Applications are now open for a scholarships contest programme for 2022-2023! Our goal is to provide financial assistance and mentorship to students without the necessary means who demonstrate alignment with our values and want to further their education for the 2022-2023 academic year.\\n\\nDo you have a special academic interest, or are you passionate about something on a practical or theoretical level? Would you like financial support for your research project, dissertation, project, or anything else? Then you should participate in our competition!\",\r\n        \"deadline\": \"2023-06-30 00:00\",\r\n        \"createdAt\": \"2022-07-05T08:23:16.239485\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/v1/scholarship/create/bulk",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"scholarship",
+								"create",
+								"bulk"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create scholarships in bulk",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n    {\r\n        \"country\": \"india\",\r\n        \"title\": \"International Students Support Contest 2022-2023\",\r\n        \"url\": \"https://kidatschool.com/international-students-support-contest-2022-2023\",\r\n        \"grant\": \"Up to $2,000 awards\",\r\n        \"description\": \"Applications are now open for a scholarships contest programme for 2022-2023! Our goal is to provide financial assistance and mentorship to students without the necessary means who demonstrate alignment with our values and want to further their education for the 2022-2023 academic year.\\n\\nDo you have a special academic interest, or are you passionate about something on a practical or theoretical level? Would you like financial support for your research project, dissertation, project, or anything else? Then you should participate in our competition!\",\r\n        \"deadline\": \"2023-06-30 00:00\"\r\n    },\r\n    {\r\n        \"country\": \"india\",\r\n        \"title\": \"Human Resource (HR) - Free Course From Windsor University's MBA\",\r\n        \"url\": \"https://windsoruniversity.us/academics/master-of-business-administration-mba/mba-curriculum/phri/\",\r\n        \"grant\": \"100% free\",\r\n        \"description\": \"In this course, you will learn how to use integrated coaching, organizational development, career planning, and counseling skills to design, manage, and evaluate plans that improve the individual’s productivity, employability, and job satisfaction, as well as organizational effectiveness, employment, management development, customer service, and quality management. This course includes psychology, structure behavior, adult education principles, activity counseling, ability testing and evaluation, program design, consulting practice, structure development, and applications to issues.\",\r\n        \"deadline\": \"2022-05-14 00:00\"\r\n    },\r\n    {\r\n        \"country\": \"india\",\r\n        \"title\": \"Women in Tech Scholarship: Up to 50% off your Tuition Fee on all of our Programmes\",\r\n        \"url\": \"https://bit.ly/Women-in-Tech-Scholarship\",\r\n        \"grant\": \"50% off tuition fees\",\r\n        \"description\": \"We created the [Women in Tech Scholarship](https://bit.ly/Women-in-Tech-Scholarship), to do our part to build a world that is diverse, equitable, and inclusive.\\n\\nApply by March 31, 2022, to receive up to 50% off your tuition fee and a reduced application fee.\\n\\nLast year we awarded €412,000 to 25 students.\\n\\nOur programmes:\\n\\n* Data Science\\n* Computer Science\\n* Front-end Development\\n* Cyber Security\\n* Product Management\\n* Fintech\\n* Interaction Design\\n* Digital Marketing\\n* High-tech Entrepreneurship\",\r\n        \"deadline\": \"2022-03-31 00:00\"\r\n    },\r\n    {\r\n        \"country\": \"india\",\r\n        \"title\": \"Study Product Management with a 50% Scholarship\",\r\n        \"url\": \"https://scholarships.harbour.space/product-management?utm_source=studyportals&utm_medium=listing&utm_campaign=both_b2c_pm-launch\",\r\n        \"grant\": \"Get up to 11,450€ off your tuition fee\",\r\n        \"description\": \"We’re searching for talented individuals to join the first batch of our Product Management programme.\\n\\n  \\n\\nIf you would like to kick-start your product career, don’t miss this opportunity!\",\r\n        \"deadline\": \"2022-03-31 00:00\"\r\n    }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/v1/scholarship/create/bulk",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"scholarship",
+										"create",
+										"bulk"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 06 Aug 2022 07:35:04 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responseStatus\": \"SUCCESS\",\n    \"data\": {\n        \"documentCreated\": 4\n    },\n    \"error\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Search",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"degrees\": [\r\n        \"MASTER\"\r\n    ],\r\n    \"countries\": [\r\n        \"United states\"\r\n    ],\r\n    \"search\": null,\r\n    \"page\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/v1/scholarship/get",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"scholarship",
+								"get"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Search",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"degrees\": [\"MASTER\"],\r\n    \"countries\": [\"United states\"],\r\n    \"search\": null,\r\n    \"page\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/api/v1/scholarship/get",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"scholarship",
+										"get"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Aug 2022 04:35:22 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responseStatus\": \"SUCCESS\",\n    \"data\": {\n        \"scholarships\": [\n            {\n                \"title\": \"Human Resource (HR) - Free Course From Windsor University's MBA\",\n                \"url\": \"https://windsoruniversity.us/academics/master-of-business-administration-mba/mba-curriculum/phri/\",\n                \"grant\": \"100% free\",\n                \"description\": \"In this course, you will learn how to use integrated coaching, organizational development, career planning, and counseling skills to design, manage, and evaluate plans that improve the individual’s productivity, employability, and job satisfaction, as well as organizational effectiveness, employment, management development, customer service, and quality management. This course includes psychology, structure behavior, adult education principles, activity counseling, ability testing and evaluation, program design, consulting practice, structure development, and applications to issues.\",\n                \"deadline\": \"2022-05-14 00:00\",\n                \"country\": \"united states\",\n                \"degrees\": [\n                    \"MASTER\"\n                ],\n                \"createdAt\": \"2022-08-14T04:02:19.624\"\n            }\n        ]\n    },\n    \"error\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all countries",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/api/v1/scholarship/get/countries",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"scholarship",
+								"get",
+								"countries"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get all countries",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{server}}/api/v1/scholarship/get/countries",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"scholarship",
+										"get",
+										"countries"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Method"
+								},
+								{
+									"key": "Vary",
+									"value": "Access-Control-Request-Headers"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "1; mode=block"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 14 Aug 2022 04:34:31 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"responseStatus\": \"SUCCESS\",\n    \"data\": {\n        \"countries\": [\n            \"india\",\n            \"united states\"\n        ]\n    },\n    \"error\": null\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
