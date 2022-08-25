@@ -9,12 +9,14 @@ import com.cyborg.fellowshipnetwork.request.scholarship.SearchScholarshipRequest
 import com.cyborg.fellowshipnetwork.response.scholarship.CreateScholarshipInBulkResponseModel;
 import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipCountriesResponseModel;
 import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipsResponse;
+import com.cyborg.fellowshipnetwork.response.scholarship.ScholarshipResponseModel;
 import com.cyborg.fellowshipservice.mapper.NotificationMapper;
 import com.cyborg.fellowshipservice.mapper.ScholarshipMapper;
 import com.cyborg.fellowshipservice.scholarship.ScholarshipService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -22,6 +24,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -52,9 +55,7 @@ public class ScholarshipServiceImpl implements ScholarshipService {
     public GetAllScholarshipsResponse getAllScholarships(int page) {
         Pageable pageable = PageRequest.of(page, PAGE_OFFSET, Sort.by("createdAt").descending());
         return GetAllScholarshipsResponse.builder()
-                .scholarships(scholarshipRepository.findAll(pageable).stream()
-                        .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
-                        .collect(Collectors.toList()))
+                .scholarships(getConvertedScholarshipPage(pageable))
                 .build();
     }
 
@@ -114,12 +115,9 @@ public class ScholarshipServiceImpl implements ScholarshipService {
 
         if (degrees.isEmpty() && countries.isEmpty() && !StringUtils.hasText(searchQuery)) {
             return GetAllScholarshipsResponse.builder()
-                    .scholarships(scholarshipRepository.findAll(pageable).stream()
-                            .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
-                            .collect(Collectors.toList()))
+                    .scholarships(getConvertedScholarshipPage(pageable))
                     .build();
         }
-
 
         if (!degrees.isEmpty())
             query.addCriteria(Criteria.where("degrees")
@@ -134,12 +132,21 @@ public class ScholarshipServiceImpl implements ScholarshipService {
                     .caseSensitive(false)
                     .matchingPhrase(searchQuery));
 
-        List<Scholarship> scholarships = mongoTemplate.find(query, Scholarship.class);
+        List<ScholarshipResponseModel> scholarships = mongoTemplate.find(query, Scholarship.class).stream()
+                .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
+                .collect(Collectors.toList());
 
         return GetAllScholarshipsResponse.builder()
-                .scholarships(scholarships.stream()
-                        .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
-                        .collect(Collectors.toList()))
+                .scholarships(PageableExecutionUtils.getPage(scholarships, pageable, () -> mongoTemplate.count(query, Scholarship.class)))
                 .build();
+    }
+
+    private Page<ScholarshipResponseModel> getConvertedScholarshipPage(Pageable pageable) {
+        Page<Scholarship> scholarshipPage = scholarshipRepository.findAll(pageable);
+        List<ScholarshipResponseModel> scholarshipResponseModels = scholarshipPage.getContent().stream()
+                .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
+                .toList();
+        return PageableExecutionUtils.getPage(scholarshipResponseModels, pageable,
+                scholarshipPage::getTotalElements);
     }
 }

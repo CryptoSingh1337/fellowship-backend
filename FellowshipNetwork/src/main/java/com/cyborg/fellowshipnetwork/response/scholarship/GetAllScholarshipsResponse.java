@@ -2,8 +2,7 @@ package com.cyborg.fellowshipnetwork.response.scholarship;
 
 import com.cyborg.fellowshipnetwork.global.Response;
 import lombok.*;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 /**
  * @author saranshk04
@@ -15,5 +14,5 @@ import java.util.List;
 @Builder
 public class GetAllScholarshipsResponse implements Response {
 
-    private List<ScholarshipResponseModel> scholarships;
+    private Page<ScholarshipResponseModel> scholarships;
 }
