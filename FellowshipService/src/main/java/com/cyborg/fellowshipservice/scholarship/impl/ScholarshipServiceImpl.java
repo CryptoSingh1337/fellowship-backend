@@ -177,7 +177,6 @@ public class ScholarshipServiceImpl implements ScholarshipService {
                 .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
                 .collect(Collectors.toList());
 
-        System.out.println(query);
         return GetAllScholarshipsResponse.builder()
                 .scholarships(PageableExecutionUtils.getPage(scholarships, pageable, () -> mongoTemplate.count(query, Scholarship.class)))
                 .build();
