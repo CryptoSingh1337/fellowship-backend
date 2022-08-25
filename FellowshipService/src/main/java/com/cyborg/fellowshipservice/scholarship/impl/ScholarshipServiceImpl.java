@@ -100,34 +100,37 @@ public class ScholarshipServiceImpl implements ScholarshipService {
     @Override
     public GetAllScholarshipsResponse searchScholarshipByTitleAndDescription(SearchScholarshipRequest request) {
 
-        List<Degree> degrees = request.getDegrees();
+        Degree degree = request.getDegree();
         List<String> countries = request.getCountries();
-        List<String> programme = request.getProgramme();
-        List<String> branch = request.getBranch();
+        String programme = request.getProgramme();
+        String branch = request.getBranch();
         List<String> category = request.getCategory();
         String searchQuery = request.getSearch();
-        Integer income = request.getIncome();
+        Integer[] income = request.getIncome();
         Integer page = request.getPage();
 
         countries = countries.stream()
                 .map(String::toLowerCase)
                 .collect(Collectors.toList());
 
-        Pageable pageable = PageRequest.of(page, PAGE_OFFSET);
+        Pageable pageable = PageRequest.of(page, PAGE_OFFSET)
+                .withSort(Sort.by("createdAt").descending());
         Query query = new Query()
-                .with(pageable);
+                .with(pageable)
+                .skip(Integer.toUnsignedLong(pageable.getPageSize() * pageable.getPageNumber()))
+                .limit(pageable.getPageSize());
 
-        if (degrees.isEmpty() && countries.isEmpty() && programme.isEmpty() &&
-                branch.isEmpty() && category.isEmpty() && income == null &&
+        if (degree == null && countries.isEmpty() && !StringUtils.hasText(programme) &&
+                !StringUtils.hasText(branch) && category.isEmpty() && income.length == 0 &&
                 !StringUtils.hasText(searchQuery)) {
             return GetAllScholarshipsResponse.builder()
                     .scholarships(getConvertedScholarshipPage(pageable))
                     .build();
         }
 
-        if (!degrees.isEmpty())
-            query.addCriteria(Criteria.where("degrees")
-                    .in(degrees));
+        if (degree != null)
+            query.addCriteria(Criteria.where("degree")
+                    .in(degree));
 
         if (!countries.isEmpty()) {
             countries = countries.stream()
@@ -137,18 +140,14 @@ public class ScholarshipServiceImpl implements ScholarshipService {
                     .in(countries));
         }
 
-        if (!programme.isEmpty()) {
-            programme = programme.stream()
-                    .map(String::toLowerCase)
-                    .collect(Collectors.toList());
+        if (StringUtils.hasText(programme)) {
+            programme = programme.toLowerCase();
             query.addCriteria(Criteria.where("programme")
                     .in(programme));
         }
 
-        if (!branch.isEmpty()) {
-            branch = branch.stream()
-                    .map(String::toLowerCase)
-                    .collect(Collectors.toList());
+        if (StringUtils.hasText(branch)) {
+            branch = branch.toLowerCase();
             query.addCriteria(Criteria.where("branch")
                     .in(branch));
         }
@@ -161,11 +160,11 @@ public class ScholarshipServiceImpl implements ScholarshipService {
                     .in(category));
         }
 
-        if (income != null && income >= 20_000 && income <= 7_00_000) {
+        if (income != null && income.length == 2) {
             query.addCriteria(Criteria.where("income")
-                    .lt(income));
+                    .gte(income[0])
+                    .lte(income[1]));
         }
-
 
         if (StringUtils.hasText(searchQuery)) {
             query.addCriteria(TextCriteria.forLanguage("en")
@@ -177,8 +176,12 @@ public class ScholarshipServiceImpl implements ScholarshipService {
                 .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
                 .collect(Collectors.toList());
 
+        System.out.println(mongoTemplate.count(query, Scholarship.class));
+
         return GetAllScholarshipsResponse.builder()
-                .scholarships(PageableExecutionUtils.getPage(scholarships, pageable, () -> mongoTemplate.count(query, Scholarship.class)))
+                .scholarships(PageableExecutionUtils.getPage(scholarships, pageable,
+                        () -> mongoTemplate.count(query.skip(-1).limit(-1),
+                                Scholarship.class)))
                 .build();
     }
 

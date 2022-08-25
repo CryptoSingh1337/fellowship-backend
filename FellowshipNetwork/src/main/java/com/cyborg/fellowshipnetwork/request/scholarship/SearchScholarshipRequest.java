@@ -16,18 +16,16 @@ import java.util.List;
 @ToString
 public class SearchScholarshipRequest {
 
-    @NotNull
-    private List<Degree> degrees;
+    private Degree degree;
     @NotNull
     private List<String> countries;
-    @NotNull
-    private List<String> programme;
-    @NotNull
-    private List<String> branch;
+    private String programme;
+    private String branch;
     @NotNull
     private List<String> category;
     private String search;
-    private Integer income;
+    @NotNull
+    private Integer[] income;
     @NotNull
     private Integer page;
 }
