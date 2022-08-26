@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ContactUsMail</title>
+</head>
+<body>
+<h1>Fellowship - Team Cyborg</h1>
+<h3>Contact Us</h3>
+<h4 th:text="'Name: ' + ${mailRequest.name}"></h4>
+<p th:text="'Message: ' + ${mailRequest.message}"></p>
+</body>
+</html>

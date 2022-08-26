@@ -2,6 +2,7 @@ package com.cyborg.fellowshipscheduler.mail;
 
 import com.cyborg.fellowshipdataaccess.repository.UserRepository;
 import com.cyborg.fellowshipjms.config.payload.ScholarshipNotification;
+import com.cyborg.fellowshipnetwork.request.contact.ContactUsMailRequestModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,5 +43,17 @@ public class MailService {
             mailSender.send(messagePreparator);
             log.info("Email send");
         });
+    }
+
+    public void sendContactUsMail(ContactUsMailRequestModel contactUsMailRequestModel) {
+        MimeMessagePreparator messagePreparator = mimeMessage -> {
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+            mimeMessageHelper.setFrom(emailFrom);
+            mimeMessageHelper.setTo(contactUsMailRequestModel.getEmail());
+            mimeMessageHelper.setText(contentBuilder.contactUsMailBuilder(contactUsMailRequestModel), true);
+        };
+
+        mailSender.send(messagePreparator);
+        log.info("Contact us mail send");
     }
 }
