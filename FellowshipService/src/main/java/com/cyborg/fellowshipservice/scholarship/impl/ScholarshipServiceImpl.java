@@ -20,7 +20,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
@@ -179,10 +178,11 @@ public class ScholarshipServiceImpl implements ScholarshipService {
         }
 
         if (StringUtils.hasText(searchQuery)) {
-            query.addCriteria(TextCriteria.forLanguage("en")
-                    .caseSensitive(false)
-                    .matchingPhrase(searchQuery));
+            query.addCriteria(Criteria.where("title")
+                    .regex(String.format("^%s", searchQuery), "i"));
         }
+
+        System.out.println(query);
 
         List<ScholarshipResponseModel> scholarships = mongoTemplate.find(query, Scholarship.class).stream()
                 .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
