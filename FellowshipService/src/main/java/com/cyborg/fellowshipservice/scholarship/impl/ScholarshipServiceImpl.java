@@ -6,10 +6,7 @@ import com.cyborg.fellowshipdataaccess.repository.ScholarshipRepository;
 import com.cyborg.fellowshipjms.config.producer.SQSProducer;
 import com.cyborg.fellowshipnetwork.request.scholarship.CreateScholarshipRequestModel;
 import com.cyborg.fellowshipnetwork.request.scholarship.SearchScholarshipRequest;
-import com.cyborg.fellowshipnetwork.response.scholarship.CreateScholarshipInBulkResponseModel;
-import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipCountriesResponseModel;
-import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipsResponse;
-import com.cyborg.fellowshipnetwork.response.scholarship.ScholarshipResponseModel;
+import com.cyborg.fellowshipnetwork.response.scholarship.*;
 import com.cyborg.fellowshipservice.mapper.NotificationMapper;
 import com.cyborg.fellowshipservice.mapper.ScholarshipMapper;
 import com.cyborg.fellowshipservice.scholarship.ScholarshipService;
@@ -50,6 +47,15 @@ public class ScholarshipServiceImpl implements ScholarshipService {
     private final NotificationMapper notificationMapper;
     @Value("${scholarships.page.offset}")
     private int PAGE_OFFSET;
+
+    @Override
+    public GetAllScholarshipsNoPageResponse getAllScholarships() {
+        return GetAllScholarshipsNoPageResponse.builder()
+                .scholarships(scholarshipRepository.findAll().stream()
+                        .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
+                        .collect(Collectors.toList()))
+                .build();
+    }
 
     @Override
     public GetAllScholarshipsResponse getAllScholarships(int page) {

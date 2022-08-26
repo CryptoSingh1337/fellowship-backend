@@ -6,6 +6,7 @@ import com.cyborg.fellowshipnetwork.request.scholarship.CreateScholarshipRequest
 import com.cyborg.fellowshipnetwork.request.scholarship.SearchScholarshipRequest;
 import com.cyborg.fellowshipnetwork.response.scholarship.CreateScholarshipInBulkResponseModel;
 import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipCountriesResponseModel;
+import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipsNoPageResponse;
 import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipsResponse;
 import com.cyborg.fellowshipservice.scholarship.ScholarshipService;
 import com.cyborg.utilities.response.ApiResponseUtil;
@@ -27,6 +28,13 @@ import static org.springframework.http.HttpStatus.OK;
 public class ScholarshipController {
 
     private final ScholarshipService scholarshipService;
+
+    @GetMapping(value = "", produces = {"application/json"})
+    public ResponseEntity<ApiResponse<Response>> getAllScholarships() {
+        GetAllScholarshipsNoPageResponse scholarshipsResponse = scholarshipService.getAllScholarships();
+        return ResponseEntity.status(OK)
+                .body(ApiResponseUtil.createApiSuccessResponse(scholarshipsResponse));
+    }
 
     @GetMapping(value = "/all", produces = {"application/json"})
     public ResponseEntity<ApiResponse<Response>> getAllScholarships(@RequestParam Integer page) {

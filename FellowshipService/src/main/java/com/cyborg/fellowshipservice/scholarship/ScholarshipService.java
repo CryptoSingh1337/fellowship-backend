@@ -4,6 +4,7 @@ import com.cyborg.fellowshipnetwork.request.scholarship.CreateScholarshipRequest
 import com.cyborg.fellowshipnetwork.request.scholarship.SearchScholarshipRequest;
 import com.cyborg.fellowshipnetwork.response.scholarship.CreateScholarshipInBulkResponseModel;
 import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipCountriesResponseModel;
+import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipsNoPageResponse;
 import com.cyborg.fellowshipnetwork.response.scholarship.GetAllScholarshipsResponse;
 
 import java.util.List;
@@ -12,6 +13,8 @@ import java.util.List;
  * @author saranshk04
  */
 public interface ScholarshipService {
+
+    GetAllScholarshipsNoPageResponse getAllScholarships();
 
     GetAllScholarshipsResponse getAllScholarships(int page);
 
