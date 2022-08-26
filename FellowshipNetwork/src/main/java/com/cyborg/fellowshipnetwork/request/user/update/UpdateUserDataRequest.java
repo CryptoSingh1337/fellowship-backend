@@ -26,4 +26,14 @@ public class UpdateUserDataRequest {
     private String country;
     @NotNull
     private Degree degree;
+    @NotBlank
+    private String programme;
+    @NotBlank
+    private String branch;
+    @NotBlank
+    private String category;
+    @NotNull
+    private Integer income;
+    @NotNull
+    private Double percentage;
 }

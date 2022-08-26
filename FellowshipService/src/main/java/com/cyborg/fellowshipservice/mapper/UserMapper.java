@@ -35,6 +35,11 @@ public class UserMapper {
                 .roles(user.getRoles())
                 .country(user.getCountry())
                 .degree(user.getDegree())
+                .programme(user.getProgramme())
+                .branch(user.getBranch())
+                .category(user.getCategory())
+                .income(user.getIncome())
+                .percentage(user.getPercentage())
                 .build();
     }
 

@@ -38,6 +38,8 @@ public class CreateScholarshipRequestModel {
     private List<Degree> degrees;
     @NotNull
     private Integer income;
+    @NotNull
+    private Integer merit;
     // TODO: to be remove in prod
     private LocalDateTime createdAt;
 }

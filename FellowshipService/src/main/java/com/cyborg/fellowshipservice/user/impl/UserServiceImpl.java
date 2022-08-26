@@ -82,6 +82,11 @@ public class UserServiceImpl implements UserService {
         user.setCountry(updateUserDataRequest.getCountry().toLowerCase());
         user.setDegree(updateUserDataRequest.getDegree());
         user.setUpdatedAt(LocalDateTime.now(ZoneOffset.UTC));
+        user.setProgramme(updateUserDataRequest.getProgramme().toLowerCase());
+        user.setBranch(updateUserDataRequest.getBranch().toLowerCase());
+        user.setCategory(updateUserDataRequest.getCategory());
+        user.setIncome(updateUserDataRequest.getIncome());
+        user.setPercentage(updateUserDataRequest.getPercentage());
         user = userRepository.save(user);
         return userMapper.userToUpdateUserDataResponse(user);
     }

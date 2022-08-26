@@ -23,5 +23,10 @@ public class UserResponse implements Response {
     private String email;
     private String country;
     private Degree degree;
+    private String programme;
+    private String branch;
+    private String category;
+    private Integer income;
+    private Double percentage;
     private Collection<Role> roles;
 }

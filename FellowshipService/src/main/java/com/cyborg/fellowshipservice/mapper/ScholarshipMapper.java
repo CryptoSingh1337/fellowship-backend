@@ -26,6 +26,7 @@ public class ScholarshipMapper {
                 .category(scholarship.getCategory())
                 .degrees(scholarship.getDegrees())
                 .income(scholarship.getIncome())
+                .merit(scholarship.getMerit())
                 .createdAt(scholarship.getCreatedAt())
                 .build();
     }
@@ -53,6 +54,7 @@ public class ScholarshipMapper {
                 .degrees(createScholarshipRequestModel.getDegrees())
                 .income(createScholarshipRequestModel.getIncome() == null ? 20_000 :
                         createScholarshipRequestModel.getIncome())
+                .merit(createScholarshipRequestModel.getMerit())
                 .score(0.0f)
                 .createdAt(createScholarshipRequestModel.getCreatedAt())
                 .build();

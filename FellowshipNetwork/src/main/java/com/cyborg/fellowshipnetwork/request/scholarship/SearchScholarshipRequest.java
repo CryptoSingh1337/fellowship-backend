@@ -26,6 +26,7 @@ public class SearchScholarshipRequest {
     private String search;
     @NotNull
     private Integer[] income;
+    private Integer percentage;
     @NotNull
     private Integer page;
 }

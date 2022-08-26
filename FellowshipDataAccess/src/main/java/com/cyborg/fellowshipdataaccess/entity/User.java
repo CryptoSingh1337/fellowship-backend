@@ -32,6 +32,11 @@ public class User {
     private LocalDateTime updatedAt;
     private String country;
     private Degree degree;
+    private String programme;
+    private String branch;
+    private String category;
+    private Integer income;
+    private Double percentage;
     private Collection<Role> roles;
 
     public void addRole(Role role) {

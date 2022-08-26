@@ -38,6 +38,7 @@ public class Scholarship {
     private List<String> category;
     private List<Degree> degrees;
     private Integer income;
+    private Integer merit;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     @TextScore

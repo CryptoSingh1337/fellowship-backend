@@ -105,6 +105,7 @@ public class ScholarshipServiceImpl implements ScholarshipService {
         String programme = request.getProgramme();
         String branch = request.getBranch();
         List<String> category = request.getCategory();
+        Integer percentage = request.getPercentage();
         String searchQuery = request.getSearch();
         Integer[] income = request.getIncome();
         Integer page = request.getPage();
@@ -129,7 +130,7 @@ public class ScholarshipServiceImpl implements ScholarshipService {
         }
 
         if (degree != null)
-            query.addCriteria(Criteria.where("degree")
+            query.addCriteria(Criteria.where("degrees")
                     .in(degree));
 
         if (!countries.isEmpty()) {
@@ -166,17 +167,22 @@ public class ScholarshipServiceImpl implements ScholarshipService {
                     .lte(income[1]));
         }
 
+        if (percentage != null) {
+            query.addCriteria(Criteria.where("merit")
+                    .lte(percentage));
+        }
+
         if (StringUtils.hasText(searchQuery)) {
             query.addCriteria(TextCriteria.forLanguage("en")
                     .caseSensitive(false)
                     .matchingPhrase(searchQuery));
         }
 
+        System.out.println(query);
+
         List<ScholarshipResponseModel> scholarships = mongoTemplate.find(query, Scholarship.class).stream()
                 .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
                 .collect(Collectors.toList());
-
-        System.out.println(mongoTemplate.count(query, Scholarship.class));
 
         return GetAllScholarshipsResponse.builder()
                 .scholarships(PageableExecutionUtils.getPage(scholarships, pageable,
