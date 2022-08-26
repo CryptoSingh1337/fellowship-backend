@@ -184,8 +184,6 @@ public class ScholarshipServiceImpl implements ScholarshipService {
                     .matchingPhrase(searchQuery));
         }
 
-        System.out.println(query);
-
         List<ScholarshipResponseModel> scholarships = mongoTemplate.find(query, Scholarship.class).stream()
                 .map(scholarshipMapper::scholarshipToScholarshipResponseModel)
                 .collect(Collectors.toList());
