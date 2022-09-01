@@ -9,12 +9,11 @@ A Scholarship Aggregator which updates in real time. It has the following functi
 
 - Minimalistic UI
 - Scrap scholarships from various sources.
-- Admin dashboard where admin can update scholarships, user's data and can add scholarships from the portal itself using
-  the JSON file.
+- Admin dashboard where admin can update scholarships, user's data and can add scholarships from the portal itself using the JSON file or can directly paste the JSON string.
 - Sends notifications to the registered user about the recent scholarship which are added on the portal.
 - Auto remove all the expired scholarships.
-- Recommend scholarships based on user details (country, degree).
-- User can search scholarships based on country, degree and phrases.
+- Recommend scholarships based on user details (country, degree, field of study, branch, title, family income and category).
+- User can search scholarships based on country, degree, field of study, branch, title, family income and category.
 
 **Tech stack**:
 
