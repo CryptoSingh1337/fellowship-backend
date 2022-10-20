@@ -5,6 +5,8 @@
 ![](https://img.shields.io/badge/Nuxt.js-2.15.8-2ddc87)
 ![](https://img.shields.io/badge/Vuetify.js-2.6.1-2e95f2)
 
+Frontend Repo: [https://github.com/CryptoSingh1337/fellowship-frontend](https://github.com/CryptoSingh1337/fellowship-frontend)
+
 A Scholarship Aggregator which updates in real time. It has the following functionality:
 
 - Minimalistic UI
